@@ -1,8 +1,12 @@
 ---
-title: "chapter 3"
+title: "R4DS Exercises"
 author: "Maddie Lombardo"
 date: "1/18/2022"
-output: html_document
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+  knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path(dirname(inputFile), 'docs/index.html')) })
 ---
 
 ```{r setup, include=FALSE}
@@ -10,92 +14,121 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
-```{r first graph}
-ggplot2::mpg
-ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy))
-#making a graphing template
-ggplot(data = <DATA>) +
-  <GEOM_FUNCTION>(mapping = aes(<MAPPINGS>))
+##Chapter 3.2.4 Exercises
+
+Question 1
+```{r 3.2.4 Question 1}
+ggplot(data = mpg) 
 ```
+This line of code does not output a graph as there is no geom function to tell R studio what to output. Need '+ geom_point(mapping = aes(x = displ, y = 'variable'))' to see anything
 
-```{r 3.2.4 exercises}
-#1
-ggplot(data = mpg) #this line of code does not output a graph as there is no geom function to tell R studio what to output. Need '+ geom_point(mapping = aes(x = displ, y = 'variable'))' to see anything
+Question 2
+234 rows, 11 columns
 
-#2 234 rows, 11 columns
+Question 3
+drv = the type of drive train, f = fwd, r = rwd, 4 = 4wd
 
-#3 drv = the type of drive train, f = fwd, r = rwd, 4 = 4wd
-
-#4
+Question 4
+```{r 3.2.4 Question 4}
 ggplot(data = mpg) +
   geom_point(mapping = aes(x = hwy, y = cyl))
-
-#5
-ggplot(data = mpg) +
-  geom_point(mapping = aes(x = class, y = drv))
-#this is not helpful because there are no numerical values in class or drv so a scatterplot wouldn't be a good way to visualize this data.
 ```
 
-```{r 3.3.1 exercises}
-#1 ggplot(data = mpg) + 
-  #geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+Question 5
+```{r 3.2.4 Question 5}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = class, y = drv))
+```
+This is not helpful because there are no numerical values in class or drv so a scatterplot wouldn't be a good way to visualize this data.
+
+##Chapter 3.3.1 Exercises
+
+Question 1
+```{r 3.3.1 Question 1}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+
 #this is incorrect because there is a missing parenthesis after hwy. should be:
+
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
+```
 
-#2 
-#categorical variables: manufacturer, model, trans, drv, fl, class
-#continuous variables: displ, year, cyl, cty, hwy
-#you can see this when you run mpg under the columns where it displays the type of variable (cat = <chr> cont = <dbl>, <int>)
+Question 2 
+categorical variables: manufacturer, model, trans, drv, fl, class
+continuous variables: displ, year, cyl, cty, hwy
 
-#3
+you can see this when you run mpg under the columns where it displays the type of variable (cat = <chr> cont = <dbl>, <int>)
+
+Question 3
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, size = displ, color = year, shape = cyl))
 #you can't map a continuous variable to shape
-
+```{r 3.3.1 Question 3}
 ggplot(data = mpg) +
   geom_point(mapping = aes(x = manufacturer, y = model, size = model, color = trans, shape = class))
-#you shouldn't use size for a discrete variable; the shape palette can only handle 6 values so any more doesn't work well; asks you to specify shapes if you have to have them.
+```
+You shouldn't use size for a discrete variable; the shape palette can only handle 6 values so any more doesn't work well; asks you to specify shapes if you have to have them.
 
-#4 the points for what you are graphing each have a specific color, size, and shape.
+Question 4
+The points for what you are graphing each have a specific color, size, and shape.
+```{r 3.3.1 Question 4}
 ggplot(data = mpg) +
   geom_point(mapping = aes(x = manufacturer, y = model, size = class, color = class, shape = class))
-
-#5 if a shape had a border, stroke would control the width of the border
-
-#6
-ggplot(data = mpg) +
-  geom_point(mapping = aes(x = manufacturer, y = model, color = displ < 5))
-#this colors the points based on if the condition displ < 5 is true or false
 ```
 
-```{r exercises 3.5.1}
-#1 creates a new graph for each of the numbers in the continuous variable like displ, run below
+Question 5 
+if a shape had a border, stroke would control the width of the border
+
+Question 6
+```{r 3.3.1 Question 6}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = manufacturer, y = model, color = displ < 5))
+```
+This colors the points based on if the condition displ < 5 is true or false
+
+##Chapter 3.5.1 Exercises
+
+Question 1
+Creates a new graph for each of the numbers in the continuous variable like displ, see below
+```{r 3.5.1 Question 1}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
   facet_wrap(~ displ, nrow = 2)
+```
 
-#2 the empty cells in the plot with facet_grid(drv ~ cyl) show that there are no points that relate to both variables (cyl, drv). for example, for the cells with 5 cylinders and 4wd, there are no points so cannot plot the displ and hwy for it.
+
+Question 2 
+The empty cells in the plot with facet_grid(drv ~ cyl) show that there are no points that relate to both variables (cyl, drv). for example, for the cells with 5 cylinders and 4wd, there are no points so cannot plot the displ and hwy for it.
+```{r 3.5.1 Question 2}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
   facet_grid(drv ~ cyl)
+```
 
-#3 the '.' determines where the drv axis will be (on the righthand side vs the top)
+Question 3 
+The '.' determines where the drv axis will be (on the righthand side vs the top). It is the placeholder for the empty axis.
+```{r 3.5.1 Question 3}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) +
-  facet_grid(drv ~ .) #righthand side
+  facet_grid(drv ~ .) 
+#righthand side
 
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) +
-  facet_grid(. ~ drv) #above
+  facet_grid(. ~ drv) 
+#above
+```
 
-#4 the advantage of using facet wrap instead of color is that it allows you to more easily see differences in hwy and displ for each car type because they are separated into individual graphs. Especially for large datasets, it would be quite difficult to see all of one car types' data points with color because they could overlap on the graph.
+Question 4
+The advantage of using facet wrap instead of color is that it allows you to more easily see differences in hwy and displ for each car type because they are separated into individual graphs. Especially for large datasets, it would be quite difficult to see all of one car types' data points with color because they could overlap on the graph.
+```{r 3.5.1 Question 4}
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy)) + 
   facet_wrap(~ class, nrow = 2)
+```
 
-#5
+
 ```
 
 
