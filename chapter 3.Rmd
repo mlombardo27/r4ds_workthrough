@@ -1,5 +1,5 @@
 ---
-title: "R4DS Exercises"
+title: "Chapter 3 Exercises"
 author: "Maddie Lombardo"
 date: "1/18/2022"
 output: 
@@ -150,7 +150,7 @@ nrow is the number of rows, ncol is the number of columns. The other options tha
 
 Because if you add more levels to the rows, the col axis (y-axis) would be shorter, meaning that it would be harder to see the actual values on the plots.
 
-## 3.6.1 Excersises
+## Chapter 3.6.1 Excersises
 
 ### Question 1: What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
 
@@ -221,7 +221,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = drv), size = 1.5)
 ```
 
-## 3.7.1 Exercises
+## Chapter 3.7.1 Exercises
 
 ### Question 1: What is the default geom associated with stat_summary()? How could you rewrite the previous plot to use that geom function instead of the stat function?
 
@@ -286,6 +286,7 @@ The behavior of stat_smooth() is controlled by: na.rm, method, formula, se, meth
 
 ### Question 5: In our proportion bar chart, we need to set group = 1. Why? In other words what is the problem with these two graphs?
 
+If group = 1 is not included, it will set the height of all the bars as the same. The issue is that the proportions are set inside the groups in this code.
 ```{r 3.7.1 Question 5}
 ggplot(data = diamonds) + 
   geom_bar(mapping = aes(x = cut, y = after_stat(prop)))
@@ -294,4 +295,89 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = color, y = after_stat(prop)))
 ```
 
-***ANSWER TOMORRW, you ran out of time
+## Chapter 3.8.1 Exercises
+
+### Question 1: What is the problem with this plot? How could you improve it?
+
+```{r 3.8.1 Question 1}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point()
+
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
+  geom_point()+
+  geom_jitter()
+```
+
+The use of geom_jitter() improves this plot because it makes it more visible to see the overlapping points. Without it, there is the issue of overplotting and the graph is less obvious.
+
+### Question 2: What parameters to geom_jitter() control the amount of jittering?
+
+width and height: the amount of vertical and horizontal jitter
+
+### Question 3: Compare and contrast geom_jitter() with geom_count().
+
+geom_jitter and geom_count both are useful in overplotting situations as they both reveal overlapping points. Geom_jitter makes it visible the points that overlap whereas geom_count provides the number of points overlapping at each location on the graph.
+
+### Question 4: What’s the default position adjustment for geom_boxplot()? Create a visualisation of the mpg dataset that demonstrates it.
+
+```{r 3.8.1 Question 4.1}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy, group = drv))+
+  geom_boxplot()
+```
+
+The default position adjustment for geom_boxplot() is "dodge2."
+
+```{r 3.8.1 Question 4.2}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy, group = drv))+
+  geom_boxplot(position = "dodge2")
+```
+
+Both graphs are identical, showing that the default position is 'dodge2.'
+
+## Chapter 3.9.1 Exercises
+
+### Question 1: Turn a stacked bar chart into a pie chart using coord_polar().
+
+```{r 3.9.1 Question 1}
+ggplot(data = diamonds) + 
+  geom_bar(
+    mapping = aes(x = cut, fill = cut), 
+    show.legend = FALSE,
+    width = 1
+  ) + 
+  theme(aspect.ratio = 1) +
+  labs(x = NULL, y = NULL)+
+  coord_flip()
+
+ggplot(data = diamonds) + 
+  geom_bar(
+    mapping = aes(x = cut, fill = cut), 
+    show.legend = FALSE,
+    width = 1
+  ) + 
+  theme(aspect.ratio = 1) +
+  labs(x = NULL, y = NULL)+
+  coord_flip()+
+  coord_polar()
+```
+
+### Question 2: What does labs() do? Read the documentation.
+
+labs() adds labels to your graph. It provides options to set a title, subtitle, caption, tag, or x/y labels.
+
+### Question 3: What’s the difference between coord_quickmap() and coord_map()?
+
+coord_quickmap() is a quick approximation that preserves straight lines for the 2D plane from the spherical earth (so is better for smaller areas close to equator); coord_map(), on the other hand, requires a lot of computation because it projects a portion of the earth onto a 2D plane but doesn't preserve straight lines.
+
+### Question 4: What does the plot below tell you about the relationship between city and highway mpg? Why is coord_fixed() important? What does geom_abline() do?
+
+```{r 3.9.1 Question 4}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_point() + 
+  geom_abline() +
+  coord_fixed()
+```
+
+The plot tells you that there is higher highway miles per gallon compared to city miles per gallon for all cars.
+coord_fixed() is important because it does not stretch out the graph so that it is a perfect square. It better shows the actual numerical value's position for hwy/cty.
+geom_abline() adds a reference line for the correlation between hwy and cty.
