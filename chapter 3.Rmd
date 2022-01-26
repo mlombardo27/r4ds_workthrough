@@ -13,6 +13,7 @@ knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = e
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
+# Chapter 3
 
 ## Chapter 3.2.4 Exercises
 
