@@ -1,0 +1,17 @@
+--- 
+title: "R4DS Exercise Solutions"
+author: "Maddie Lombardo"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo:  mlombardo27/r4ds_workthrough 
+description: "going through the r4ds exercsies"
+---
+
+# Prerequisites
+
+I'm going to put some nonsense here and see what happens
