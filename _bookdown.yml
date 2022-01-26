@@ -1,7 +1,7 @@
 book_filename: "r4dsexercises"
 language:
   ui:
-    chapter_name: "zxcv"
+    chapter_name: ""
 delete_merged_file: true
 
 output_dir: "docs"

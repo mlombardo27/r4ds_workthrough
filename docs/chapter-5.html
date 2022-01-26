@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Chapter 5 | R4DS Exercise Solutions</title>
+  <meta name="description" content="going through the r4ds exercsies" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Chapter 5 | R4DS Exercise Solutions" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="going through the r4ds exercsies" />
+  <meta name="github-repo" content="mlombardo27/r4ds_workthrough" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Chapter 5 | R4DS Exercise Solutions" />
+  
+  <meta name="twitter:description" content="going through the r4ds exercsies" />
+  
+
+<meta name="author" content="Maddie Lombardo" />
+
+
+<meta name="date" content="2022-01-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="chapter-4.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>2</b> Chapter 3</a><ul>
+<li class="chapter" data-level="2.1" data-path="chapter-3.html"><a href="chapter-3.html#chapter-3.2.4-exercises"><i class="fa fa-check"></i><b>2.1</b> Chapter 3.2.4 Exercises</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="chapter-3.html"><a href="chapter-3.html#question-1-run-ggplotdata-mpg.-what-do-you-see"><i class="fa fa-check"></i><b>2.1.1</b> Question 1: Run ggplot(data = mpg). What do you see?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="chapter-3.html"><a href="chapter-3.html#question-2-how-many-rows-are-in-mpg-how-many-columns"><i class="fa fa-check"></i><b>2.1.2</b> Question 2: How many rows are in mpg? How many columns?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="chapter-3.html"><a href="chapter-3.html#question-3-what-does-the-drv-variable-describe-read-the-help-for-mpg-to-find-out."><i class="fa fa-check"></i><b>2.1.3</b> Question 3: What does the drv variable describe? Read the help for ?mpg to find out.</a></li>
+<li class="chapter" data-level="2.1.4" data-path="chapter-3.html"><a href="chapter-3.html#question-4-make-a-scatterplot-of-hwy-vs-cyl."><i class="fa fa-check"></i><b>2.1.4</b> Question 4: Make a scatterplot of hwy vs cyl.</a></li>
+<li class="chapter" data-level="2.1.5" data-path="chapter-3.html"><a href="chapter-3.html#question-5-what-happens-if-you-make-a-scatterplot-of-class-vs-drv-why-is-the-plot-not-useful"><i class="fa fa-check"></i><b>2.1.5</b> Question 5: What happens if you make a scatterplot of class vs drv? Why is the plot not useful?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="chapter-3.html"><a href="chapter-3.html#chapter-3.3.1-exercises"><i class="fa fa-check"></i><b>2.2</b> Chapter 3.3.1 Exercises</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="chapter-3.html"><a href="chapter-3.html#question-1-whats-gone-wrong-with-this-code-why-are-the-points-not-blue"><i class="fa fa-check"></i><b>2.2.1</b> Question 1: What’s gone wrong with this code? Why are the points not blue?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="chapter-3.html"><a href="chapter-3.html#question-2which-variables-in-mpg-are-categorical-which-variables-are-continuous-hint-type-mpg-to-read-the-documentation-for-the-dataset.-how-can-you-see-this-information-when-you-run-mpg"><i class="fa fa-check"></i><b>2.2.2</b> Question 2:Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset). How can you see this information when you run mpg?</a></li>
+<li class="chapter" data-level="2.2.3" data-path="chapter-3.html"><a href="chapter-3.html#question-3map-a-continuous-variable-to-color-size-and-shape.-how-do-these-aesthetics-behave-differently-for-categorical-vs.-continuous-variables"><i class="fa fa-check"></i><b>2.2.3</b> Question 3:Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables?</a></li>
+<li class="chapter" data-level="2.2.4" data-path="chapter-3.html"><a href="chapter-3.html#question-4-what-happens-if-you-map-the-same-variable-to-multiple-aesthetics"><i class="fa fa-check"></i><b>2.2.4</b> Question 4: What happens if you map the same variable to multiple aesthetics?</a></li>
+<li class="chapter" data-level="2.2.5" data-path="chapter-3.html"><a href="chapter-3.html#question-5-what-does-the-stroke-aesthetic-do-what-shapes-does-it-work-with-hint-use-geom_point"><i class="fa fa-check"></i><b>2.2.5</b> Question 5: What does the stroke aesthetic do? What shapes does it work with? (Hint: use ?geom_point)</a></li>
+<li class="chapter" data-level="2.2.6" data-path="chapter-3.html"><a href="chapter-3.html#question-6-what-happens-if-you-map-an-aesthetic-to-something-other-than-a-variable-name-like-aescolour-displ-5-note-youll-also-need-to-specify-x-and-y."><i class="fa fa-check"></i><b>2.2.6</b> Question 6: What happens if you map an aesthetic to something other than a variable name, like aes(colour = displ &lt; 5)? Note, you’ll also need to specify x and y.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="chapter-3.html"><a href="chapter-3.html#chapter-3.5.1-exercises"><i class="fa fa-check"></i><b>2.3</b> Chapter 3.5.1 Exercises</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="chapter-3.html"><a href="chapter-3.html#question-1-what-happens-if-you-facet-on-a-continuous-variable"><i class="fa fa-check"></i><b>2.3.1</b> Question 1: What happens if you facet on a continuous variable?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="chapter-3.html"><a href="chapter-3.html#question-2-what-happens-if-you-facet-on-a-continuous-variable"><i class="fa fa-check"></i><b>2.3.2</b> Question 2: What happens if you facet on a continuous variable?</a></li>
+<li class="chapter" data-level="2.3.3" data-path="chapter-3.html"><a href="chapter-3.html#question-3-what-plots-does-the-following-code-make-what-does-.-do"><i class="fa fa-check"></i><b>2.3.3</b> Question 3: What plots does the following code make? What does . do?</a></li>
+<li class="chapter" data-level="2.3.4" data-path="chapter-3.html"><a href="chapter-3.html#question-4-take-the-first-faceted-plot-in-this-section.-what-are-the-advantages-to-using-faceting-instead-of-the-colour-aesthetic-what-are-the-disadvantages-how-might-the-balance-change-if-you-had-a-larger-dataset"><i class="fa fa-check"></i><b>2.3.4</b> Question 4: Take the first faceted plot in this section. What are the advantages to using faceting instead of the colour aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?</a></li>
+<li class="chapter" data-level="2.3.5" data-path="chapter-3.html"><a href="chapter-3.html#question-5-read-facet_wrap.-what-does-nrow-do-what-does-ncol-do-what-other-options-control-the-layout-of-the-individual-panels-why-doesnt-facet_grid-have-nrow-and-ncol-arguments"><i class="fa fa-check"></i><b>2.3.5</b> Question 5: Read ?facet_wrap. What does nrow do? What does ncol do? What other options control the layout of the individual panels? Why doesn’t facet_grid() have nrow and ncol arguments?</a></li>
+<li class="chapter" data-level="2.3.6" data-path="chapter-3.html"><a href="chapter-3.html#question-6-when-using-facet_grid-you-should-usually-put-the-variable-with-more-unique-levels-in-the-columns.-why"><i class="fa fa-check"></i><b>2.3.6</b> Question 6: When using facet_grid() you should usually put the variable with more unique levels in the columns. Why?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="chapter-3.html"><a href="chapter-3.html#chapter-3.6.1-excersises"><i class="fa fa-check"></i><b>2.4</b> Chapter 3.6.1 Excersises</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="chapter-3.html"><a href="chapter-3.html#question-1-what-geom-would-you-use-to-draw-a-line-chart-a-boxplot-a-histogram-an-area-chart"><i class="fa fa-check"></i><b>2.4.1</b> Question 1: What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?</a></li>
+<li class="chapter" data-level="2.4.2" data-path="chapter-3.html"><a href="chapter-3.html#question-2-run-this-code-in-your-head-and-predict-what-the-output-will-look-like.-then-run-the-code-in-r-and-check-your-predictions."><i class="fa fa-check"></i><b>2.4.2</b> Question 2: Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.</a></li>
+<li class="chapter" data-level="2.4.3" data-path="chapter-3.html"><a href="chapter-3.html#question-3-what-does-show.legend-false-do-what-happens-if-you-remove-it"><i class="fa fa-check"></i><b>2.4.3</b> Question 3: What does show.legend = FALSE do? What happens if you remove it?</a></li>
+<li class="chapter" data-level="2.4.4" data-path="chapter-3.html"><a href="chapter-3.html#question-4-what-does-the-se-argument-to-geom_smooth-do"><i class="fa fa-check"></i><b>2.4.4</b> Question 4: What does the se argument to geom_smooth() do?</a></li>
+<li class="chapter" data-level="2.4.5" data-path="chapter-3.html"><a href="chapter-3.html#question-5-will-these-two-graphs-look-different-whywhy-not"><i class="fa fa-check"></i><b>2.4.5</b> Question 5: Will these two graphs look different? Why/why not?</a></li>
+<li class="chapter" data-level="2.4.6" data-path="chapter-3.html"><a href="chapter-3.html#question-6-recreate-the-r-code-necessary-to-generate-the-following-graphs."><i class="fa fa-check"></i><b>2.4.6</b> Question 6: Recreate the R code necessary to generate the following graphs.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="chapter-3.html"><a href="chapter-3.html#chapter-3.7.1-exercises"><i class="fa fa-check"></i><b>2.5</b> Chapter 3.7.1 Exercises</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="chapter-3.html"><a href="chapter-3.html#question-1-what-is-the-default-geom-associated-with-stat_summary-how-could-you-rewrite-the-previous-plot-to-use-that-geom-function-instead-of-the-stat-function"><i class="fa fa-check"></i><b>2.5.1</b> Question 1: What is the default geom associated with stat_summary()? How could you rewrite the previous plot to use that geom function instead of the stat function?</a></li>
+<li class="chapter" data-level="2.5.2" data-path="chapter-3.html"><a href="chapter-3.html#question-2-what-does-geom_col-do-how-is-it-different-to-geom_bar"><i class="fa fa-check"></i><b>2.5.2</b> Question 2: What does geom_col() do? How is it different to geom_bar()?</a></li>
+<li class="chapter" data-level="2.5.3" data-path="chapter-3.html"><a href="chapter-3.html#question-3-most-geoms-and-stats-come-in-pairs-that-are-almost-always-used-in-concert.-read-through-the-documentation-and-make-a-list-of-all-the-pairs.-what-do-they-have-in-common"><i class="fa fa-check"></i><b>2.5.3</b> Question 3: Most geoms and stats come in pairs that are almost always used in concert. Read through the documentation and make a list of all the pairs. What do they have in common?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="chapter-3.html"><a href="chapter-3.html#question-4-what-variables-does-stat_smooth-compute-what-parameters-control-its-behaviour"><i class="fa fa-check"></i><b>2.5.4</b> Question 4: What variables does stat_smooth() compute? What parameters control its behaviour?</a></li>
+<li class="chapter" data-level="2.5.5" data-path="chapter-3.html"><a href="chapter-3.html#question-5-in-our-proportion-bar-chart-we-need-to-set-group-1.-why-in-other-words-what-is-the-problem-with-these-two-graphs"><i class="fa fa-check"></i><b>2.5.5</b> Question 5: In our proportion bar chart, we need to set group = 1. Why? In other words what is the problem with these two graphs?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="chapter-3.html"><a href="chapter-3.html#chapter-3.8.1-exercises"><i class="fa fa-check"></i><b>2.6</b> Chapter 3.8.1 Exercises</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="chapter-3.html"><a href="chapter-3.html#question-1-what-is-the-problem-with-this-plot-how-could-you-improve-it"><i class="fa fa-check"></i><b>2.6.1</b> Question 1: What is the problem with this plot? How could you improve it?</a></li>
+<li class="chapter" data-level="2.6.2" data-path="chapter-3.html"><a href="chapter-3.html#question-2-what-parameters-to-geom_jitter-control-the-amount-of-jittering"><i class="fa fa-check"></i><b>2.6.2</b> Question 2: What parameters to geom_jitter() control the amount of jittering?</a></li>
+<li class="chapter" data-level="2.6.3" data-path="chapter-3.html"><a href="chapter-3.html#question-3-compare-and-contrast-geom_jitter-with-geom_count."><i class="fa fa-check"></i><b>2.6.3</b> Question 3: Compare and contrast geom_jitter() with geom_count().</a></li>
+<li class="chapter" data-level="2.6.4" data-path="chapter-3.html"><a href="chapter-3.html#question-4-whats-the-default-position-adjustment-for-geom_boxplot-create-a-visualisation-of-the-mpg-dataset-that-demonstrates-it."><i class="fa fa-check"></i><b>2.6.4</b> Question 4: What’s the default position adjustment for geom_boxplot()? Create a visualisation of the mpg dataset that demonstrates it.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="chapter-3.html"><a href="chapter-3.html#chapter-3.9.1-exercises"><i class="fa fa-check"></i><b>2.7</b> Chapter 3.9.1 Exercises</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="chapter-3.html"><a href="chapter-3.html#question-1-turn-a-stacked-bar-chart-into-a-pie-chart-using-coord_polar."><i class="fa fa-check"></i><b>2.7.1</b> Question 1: Turn a stacked bar chart into a pie chart using coord_polar().</a></li>
+<li class="chapter" data-level="2.7.2" data-path="chapter-3.html"><a href="chapter-3.html#question-2-what-does-labs-do-read-the-documentation."><i class="fa fa-check"></i><b>2.7.2</b> Question 2: What does labs() do? Read the documentation.</a></li>
+<li class="chapter" data-level="2.7.3" data-path="chapter-3.html"><a href="chapter-3.html#question-3-whats-the-difference-between-coord_quickmap-and-coord_map"><i class="fa fa-check"></i><b>2.7.3</b> Question 3: What’s the difference between coord_quickmap() and coord_map()?</a></li>
+<li class="chapter" data-level="2.7.4" data-path="chapter-3.html"><a href="chapter-3.html#question-4-what-does-the-plot-below-tell-you-about-the-relationship-between-city-and-highway-mpg-why-is-coord_fixed-important-what-does-geom_abline-do"><i class="fa fa-check"></i><b>2.7.4</b> Question 4: What does the plot below tell you about the relationship between city and highway mpg? Why is coord_fixed() important? What does geom_abline() do?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chapter-4.html"><a href="chapter-4.html"><i class="fa fa-check"></i><b>3</b> Chapter 4</a><ul>
+<li class="chapter" data-level="3.1" data-path="chapter-4.html"><a href="chapter-4.html#chapter-4.4-exercises"><i class="fa fa-check"></i><b>3.1</b> Chapter 4.4 Exercises</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="chapter-4.html"><a href="chapter-4.html#question-1-why-does-this-code-not-work"><i class="fa fa-check"></i><b>3.1.1</b> Question 1: Why does this code not work?</a></li>
+<li class="chapter" data-level="3.1.2" data-path="chapter-4.html"><a href="chapter-4.html#question-2-tweak-each-of-the-following-r-commands-so-that-they-run-correctly"><i class="fa fa-check"></i><b>3.1.2</b> Question 2: Tweak each of the following R commands so that they run correctly:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>4</b> Chapter 5</a><ul>
+<li class="chapter" data-level="4.1" data-path="chapter-5.html"><a href="chapter-5.html#chapter-5.2.4-exercises"><i class="fa fa-check"></i><b>4.1</b> Chapter 5.2.4 Exercises</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="chapter-5.html"><a href="chapter-5.html#question-1-find-all-flights-that"><i class="fa fa-check"></i><b>4.1.1</b> Question 1: Find all flights that:</a></li>
+<li class="chapter" data-level="4.1.2" data-path="chapter-5.html"><a href="chapter-5.html#question-2-another-useful-dplyr-filtering-helper-is-between.-what-does-it-do-can-you-use-it-to-simplify-the-code-needed-to-answer-the-previous-challenges"><i class="fa fa-check"></i><b>4.1.2</b> Question 2: Another useful dplyr filtering helper is between(). What does it do? Can you use it to simplify the code needed to answer the previous challenges?</a></li>
+<li class="chapter" data-level="4.1.3" data-path="chapter-5.html"><a href="chapter-5.html#question-3-how-many-flights-have-a-missing-dep_time-what-other-variables-are-missing-what-might-these-rows-represent"><i class="fa fa-check"></i><b>4.1.3</b> Question 3: How many flights have a missing dep_time? What other variables are missing? What might these rows represent?</a></li>
+<li class="chapter" data-level="4.1.4" data-path="chapter-5.html"><a href="chapter-5.html#question-4-why-is-na-0-not-missing-why-is-na-true-not-missing-why-is-false-na-not-missing-can-you-figure-out-the-general-rule-na-0-is-a-tricky-counterexample"><i class="fa fa-check"></i><b>4.1.4</b> Question 4: Why is NA ^ 0 not missing? Why is NA | TRUE not missing? Why is FALSE &amp; NA not missing? Can you figure out the general rule? (NA * 0 is a tricky counterexample!)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="chapter-5.html"><a href="chapter-5.html#chapter-5.3.1-exercises"><i class="fa fa-check"></i><b>4.2</b> Chapter 5.3.1 Exercises</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="chapter-5.html"><a href="chapter-5.html#question-1-how-could-you-use-arrange-to-sort-all-missing-values-to-the-start-hint-use-is.na."><i class="fa fa-check"></i><b>4.2.1</b> Question 1: How could you use arrange() to sort all missing values to the start? (Hint: use is.na()).</a></li>
+<li class="chapter" data-level="4.2.2" data-path="chapter-5.html"><a href="chapter-5.html#question-2-sort-flights-to-find-the-most-delayed-flights.-find-the-flights-that-left-earliest."><i class="fa fa-check"></i><b>4.2.2</b> Question 2: Sort flights to find the most delayed flights. Find the flights that left earliest.</a></li>
+<li class="chapter" data-level="4.2.3" data-path="chapter-5.html"><a href="chapter-5.html#question-3-sort-flights-to-find-the-fastest-highest-speed-flights."><i class="fa fa-check"></i><b>4.2.3</b> Question 3: Sort flights to find the fastest (highest speed) flights.</a></li>
+<li class="chapter" data-level="4.2.4" data-path="chapter-5.html"><a href="chapter-5.html#question-4-which-flights-travelled-the-farthest-which-travelled-the-shortest"><i class="fa fa-check"></i><b>4.2.4</b> Question 4: Which flights travelled the farthest? Which travelled the shortest?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="chapter-5.html"><a href="chapter-5.html#chapter-5.4.1-exercises"><i class="fa fa-check"></i><b>4.3</b> Chapter 5.4.1 Exercises</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="chapter-5.html"><a href="chapter-5.html#question-1-brainstorm-as-many-ways-as-possible-to-select-dep_time-dep_delay-arr_time-and-arr_delay-from-flights."><i class="fa fa-check"></i><b>4.3.1</b> Question 1: Brainstorm as many ways as possible to select dep_time, dep_delay, arr_time, and arr_delay from flights.</a></li>
+<li class="chapter" data-level="4.3.2" data-path="chapter-5.html"><a href="chapter-5.html#question-2-what-happens-if-you-include-the-name-of-a-variable-multiple-times-in-a-select-call"><i class="fa fa-check"></i><b>4.3.2</b> Question 2: What happens if you include the name of a variable multiple times in a select() call?</a></li>
+<li class="chapter" data-level="4.3.3" data-path="chapter-5.html"><a href="chapter-5.html#question-3-what-does-the-any_of-function-do-why-might-it-be-helpful-in-conjunction-with-this-vector"><i class="fa fa-check"></i><b>4.3.3</b> Question 3: What does the any_of() function do? Why might it be helpful in conjunction with this vector?</a></li>
+<li class="chapter" data-level="4.3.4" data-path="chapter-5.html"><a href="chapter-5.html#question-4-does-the-result-of-running-the-following-code-surprise-you-how-do-the-select-helpers-deal-with-case-by-default-how-can-you-change-that-default"><i class="fa fa-check"></i><b>4.3.4</b> Question 4: Does the result of running the following code surprise you? How do the select helpers deal with case by default? How can you change that default?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="chapter-5.html"><a href="chapter-5.html#exercises"><i class="fa fa-check"></i><b>4.4</b> 5.5.2 Exercises</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="chapter-5.html"><a href="chapter-5.html#question-1-currently-dep_time-and-sched_dep_time-are-convenient-to-look-at-but-hard-to-compute-with-because-theyre-not-really-continuous-numbers.-convert-them-to-a-more-convenient-representation-of-number-of-minutes-since-midnight."><i class="fa fa-check"></i><b>4.4.1</b> Question 1: Currently dep_time and sched_dep_time are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.</a></li>
+<li class="chapter" data-level="4.4.2" data-path="chapter-5.html"><a href="chapter-5.html#question-2-compare-air_time-with-arr_time---dep_time.-what-do-you-expect-to-see-what-do-you-see-what-do-you-need-to-do-to-fix-it"><i class="fa fa-check"></i><b>4.4.2</b> Question 2: Compare air_time with arr_time - dep_time. What do you expect to see? What do you see? What do you need to do to fix it?</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R4DS Exercise Solutions</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chapter-5" class="section level1">
+<h1><span class="header-section-number">4</span> Chapter 5</h1>
+<div id="chapter-5.2.4-exercises" class="section level2">
+<h2><span class="header-section-number">4.1</span> Chapter 5.2.4 Exercises</h2>
+<div id="question-1-find-all-flights-that" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Question 1: Find all flights that:</h3>
+<p>1.1 Had an arrival delay of two or more hours</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="chapter-5.html#cb70-1"></a>delay_more_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(nycflights13<span class="op">::</span>flights, arr_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">120</span>)</span></code></pre></div>
+<p>10034 flights had an arrival delay of 2 or more hours</p>
+<p>1.2 Flew to Houston (IAH or HOU)</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="chapter-5.html#cb71-1"></a>flew_to_houston &lt;-<span class="st"> </span><span class="kw">filter</span>(nycflights13<span class="op">::</span>flights, dest <span class="op">==</span><span class="st"> &quot;IAH&quot;</span> <span class="op">|</span><span class="st"> </span>dest <span class="op">==</span><span class="st"> &quot;HOU&quot;</span>)</span></code></pre></div>
+<p>9313 flights flew to a Houston airport</p>
+<p>1.3 Were operated by United, American, or Delta</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="chapter-5.html#cb72-1"></a>un_am_del &lt;-<span class="st"> </span><span class="kw">filter</span>(nycflights13<span class="op">::</span>flights, carrier <span class="op">==</span><span class="st"> &quot;AA&quot;</span> <span class="op">|</span><span class="st"> </span>carrier <span class="op">==</span><span class="st"> &quot;DL&quot;</span> <span class="op">|</span><span class="st"> </span>carrier <span class="op">==</span><span class="st"> &quot;UA&quot;</span>)</span></code></pre></div>
+<p>139504 flights were operated by United, American, or Delta</p>
+<p>1.4 Departed in summer (July, August, and September)</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="chapter-5.html#cb73-1"></a>summer_flight &lt;-<span class="st"> </span><span class="kw">filter</span>(nycflights13<span class="op">::</span>flights, month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>))</span></code></pre></div>
+<p>86326 flights departed in summer</p>
+<p>1.5 Arrived more than two hours late, but didn’t leave late</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="chapter-5.html#cb74-1"></a>arr_<span class="dv">2</span>_late_dep_on_time &lt;-<span class="st"> </span><span class="kw">filter</span>(nycflights13<span class="op">::</span>flights, dep_delay <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>arr_delay <span class="op">&gt;</span><span class="st"> </span><span class="dv">120</span>)</span></code></pre></div>
+<p>29 flights arrived more than 2 hours late, but left on time or early.</p>
+<p>1.6 Were delayed by at least an hour, but made up over 30 minutes in flight</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="chapter-5.html#cb75-1"></a>made_up_<span class="dv">30</span> &lt;-<span class="st"> </span><span class="kw">filter</span>(nycflights13<span class="op">::</span>flights, dep_delay <span class="op">&gt;=</span><span class="st"> </span><span class="dv">60</span> <span class="op">&amp;</span><span class="st"> </span>((dep_delay <span class="op">-</span><span class="st"> </span>arr_delay) <span class="op">&gt;</span><span class="st"> </span><span class="dv">30</span>))</span></code></pre></div>
+<p>1844 flights were delayed by at least an hour but made up over 30 minutes in air</p>
+<p>1.7 Departed between midnight and 6am (inclusive)</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="chapter-5.html#cb76-1"></a>overnight_flight_dep &lt;-<span class="st"> </span><span class="kw">filter</span>(nycflights13<span class="op">::</span>flights, dep_time <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">12</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>))</span></code></pre></div>
+<p>177 flights left between midnight and 6am</p>
+</div>
+<div id="question-2-another-useful-dplyr-filtering-helper-is-between.-what-does-it-do-can-you-use-it-to-simplify-the-code-needed-to-answer-the-previous-challenges" class="section level3">
+<h3><span class="header-section-number">4.1.2</span> Question 2: Another useful dplyr filtering helper is between(). What does it do? Can you use it to simplify the code needed to answer the previous challenges?</h3>
+<p>between() will select the rows of values that fall within a specific range. Must be a numeric vector.You could simplify the last exercise (1.7) by:</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="chapter-5.html#cb77-1"></a>overnight_dep &lt;-<span class="st"> </span><span class="kw">filter</span>(nycflights13<span class="op">::</span>flights, <span class="kw">between</span>(dep_time, <span class="dv">1</span>, <span class="dv">6</span>) <span class="op">|</span><span class="st"> </span>dep_time <span class="op">==</span><span class="dv">12</span>)</span></code></pre></div>
+</div>
+<div id="question-3-how-many-flights-have-a-missing-dep_time-what-other-variables-are-missing-what-might-these-rows-represent" class="section level3">
+<h3><span class="header-section-number">4.1.3</span> Question 3: How many flights have a missing dep_time? What other variables are missing? What might these rows represent?</h3>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="chapter-5.html#cb78-1"></a>missing_dep_time &lt;-<span class="st"> </span><span class="kw">filter</span>(nycflights13<span class="op">::</span>flights, <span class="kw">is.na</span>(dep_time))</span></code></pre></div>
+<p>8255 flights have a missing departure time</p>
+<p>These flights are also missing a dep_delay and arr_time, so these may represent the flights that were cancelled.</p>
+</div>
+<div id="question-4-why-is-na-0-not-missing-why-is-na-true-not-missing-why-is-false-na-not-missing-can-you-figure-out-the-general-rule-na-0-is-a-tricky-counterexample" class="section level3">
+<h3><span class="header-section-number">4.1.4</span> Question 4: Why is NA ^ 0 not missing? Why is NA | TRUE not missing? Why is FALSE &amp; NA not missing? Can you figure out the general rule? (NA * 0 is a tricky counterexample!)</h3>
+<p>NA ^ 0 = 1 because everything to the 0th power is 1.
+NA | TRUE it’ll still return the the result of the boolean.
+FALSE &amp; NA will return the result of the boolean.
+The general rule is that it will return the boolean value.
+NA*0 = NA because when you try to do math on an NA value, it will return NA</p>
+</div>
+</div>
+<div id="chapter-5.3.1-exercises" class="section level2">
+<h2><span class="header-section-number">4.2</span> Chapter 5.3.1 Exercises</h2>
+<div id="question-1-how-could-you-use-arrange-to-sort-all-missing-values-to-the-start-hint-use-is.na." class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Question 1: How could you use arrange() to sort all missing values to the start? (Hint: use is.na()).</h3>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="chapter-5.html#cb79-1"></a><span class="kw">arrange</span>(flights, <span class="kw">desc</span>(<span class="kw">is.na</span>(flights)))</span></code></pre></div>
+<pre><code>## # A tibble: 336,776 × 22
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay carrier flight tailnum origin dest 
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;
+##  1  2013     1     2       NA           1545        NA       NA           1910        NA AA         133 &lt;NA&gt;    JFK    LAX  
+##  2  2013     1     2       NA           1601        NA       NA           1735        NA UA         623 &lt;NA&gt;    EWR    ORD  
+##  3  2013     1     3       NA            857        NA       NA           1209        NA UA         714 &lt;NA&gt;    EWR    MIA  
+##  4  2013     1     3       NA            645        NA       NA            952        NA UA         719 &lt;NA&gt;    EWR    DFW  
+##  5  2013     1     4       NA            845        NA       NA           1015        NA 9E        3405 &lt;NA&gt;    JFK    DCA  
+##  6  2013     1     4       NA           1830        NA       NA           2044        NA 9E        3716 &lt;NA&gt;    EWR    DTW  
+##  7  2013     1     5       NA            840        NA       NA           1001        NA 9E        3422 &lt;NA&gt;    JFK    BOS  
+##  8  2013     1     7       NA            820        NA       NA            958        NA 9E        3317 &lt;NA&gt;    JFK    BUF  
+##  9  2013     1     8       NA           1645        NA       NA           1838        NA US         123 &lt;NA&gt;    EWR    CLT  
+## 10  2013     1     9       NA            755        NA       NA           1012        NA 9E        4023 &lt;NA&gt;    EWR    CVG  
+## # … with 336,766 more rows, and 8 more variables: air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,
+## #   time_hour &lt;dttm&gt;, speed &lt;dbl&gt;, min_since_mid_dep_time &lt;dbl&gt;, min_since_mid_sched_dep_time &lt;dbl&gt;</code></pre>
+</div>
+<div id="question-2-sort-flights-to-find-the-most-delayed-flights.-find-the-flights-that-left-earliest." class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Question 2: Sort flights to find the most delayed flights. Find the flights that left earliest.</h3>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="chapter-5.html#cb81-1"></a>most_delay &lt;-<span class="st"> </span><span class="kw">arrange</span>(flights, <span class="kw">desc</span>(dep_delay))</span>
+<span id="cb81-2"><a href="chapter-5.html#cb81-2"></a></span>
+<span id="cb81-3"><a href="chapter-5.html#cb81-3"></a>most_delay <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb81-4"><a href="chapter-5.html#cb81-4"></a><span class="st">  </span><span class="kw">arrange</span>(dep_time)</span></code></pre></div>
+<pre><code>## # A tibble: 336,776 × 22
+##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time arr_delay carrier flight tailnum origin dest 
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;
+##  1  2013     4    10        1           1930       271      106           2101       245 UA        1703 N33203  EWR    BOS  
+##  2  2013     5    22        1           1935       266      154           2140       254 EV        4361 N27200  EWR    TYS  
+##  3  2013     6    24        1           1950       251      105           2130       215 AA         363 N546AA  LGA    ORD  
+##  4  2013     7     1        1           2029       212      236           2359       157 B6         915 N653JB  JFK    SFO  
+##  5  2013     1    31        1           2100       181      124           2225       179 WN         530 N550WN  LGA    MDW  
+##  6  2013     2    11        1           2100       181      111           2225       166 WN         530 N231WN  LGA    MDW  
+##  7  2013     3    18        1           2128       153      247           2355       172 B6          97 N760JB  JFK    DEN  
+##  8  2013     6    25        1           2130       151      249             14       155 B6        1371 N607JB  LGA    FLL  
+##  9  2013     2    24        1           2245        76      121           2354        87 B6         608 N216JB  JFK    PWM  
+## 10  2013     1    13        1           2249        72      108           2357        71 B6          22 N206JB  JFK    SYR  
+## # … with 336,766 more rows, and 8 more variables: air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,
+## #   time_hour &lt;dttm&gt;, speed &lt;dbl&gt;, min_since_mid_dep_time &lt;dbl&gt;, min_since_mid_sched_dep_time &lt;dbl&gt;</code></pre>
+</div>
+<div id="question-3-sort-flights-to-find-the-fastest-highest-speed-flights." class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Question 3: Sort flights to find the fastest (highest speed) flights.</h3>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="chapter-5.html#cb83-1"></a>flights &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb83-2"><a href="chapter-5.html#cb83-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">speed =</span> distance<span class="op">/</span>hour)</span>
+<span id="cb83-3"><a href="chapter-5.html#cb83-3"></a></span>
+<span id="cb83-4"><a href="chapter-5.html#cb83-4"></a>fastest_flights &lt;-<span class="st"> </span><span class="kw">arrange</span>(flights, <span class="kw">desc</span>(speed))</span></code></pre></div>
+</div>
+<div id="question-4-which-flights-travelled-the-farthest-which-travelled-the-shortest" class="section level3">
+<h3><span class="header-section-number">4.2.4</span> Question 4: Which flights travelled the farthest? Which travelled the shortest?</h3>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="chapter-5.html#cb84-1"></a>far &lt;-<span class="st"> </span><span class="kw">arrange</span>(flights, <span class="kw">desc</span>(distance))</span>
+<span id="cb84-2"><a href="chapter-5.html#cb84-2"></a></span>
+<span id="cb84-3"><a href="chapter-5.html#cb84-3"></a>short &lt;-<span class="st"> </span><span class="kw">arrange</span>(flights, distance)</span></code></pre></div>
+</div>
+</div>
+<div id="chapter-5.4.1-exercises" class="section level2">
+<h2><span class="header-section-number">4.3</span> Chapter 5.4.1 Exercises</h2>
+<div id="question-1-brainstorm-as-many-ways-as-possible-to-select-dep_time-dep_delay-arr_time-and-arr_delay-from-flights." class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Question 1: Brainstorm as many ways as possible to select dep_time, dep_delay, arr_time, and arr_delay from flights.</h3>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="chapter-5.html#cb85-1"></a>flights <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">matches</span>(<span class="st">&quot;^dep_&quot;</span>),<span class="kw">matches</span>(<span class="st">&quot;^arr_&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 336,776 × 4
+##    dep_time dep_delay arr_time arr_delay
+##       &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1      517         2      830        11
+##  2      533         4      850        20
+##  3      542         2      923        33
+##  4      544        -1     1004       -18
+##  5      554        -6      812       -25
+##  6      554        -4      740        12
+##  7      555        -5      913        19
+##  8      557        -3      709       -14
+##  9      557        -3      838        -8
+## 10      558        -2      753         8
+## # … with 336,766 more rows</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="chapter-5.html#cb87-1"></a>flights <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(dep_time, dep_delay, arr_time, arr_delay)</span></code></pre></div>
+<pre><code>## # A tibble: 336,776 × 4
+##    dep_time dep_delay arr_time arr_delay
+##       &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1      517         2      830        11
+##  2      533         4      850        20
+##  3      542         2      923        33
+##  4      544        -1     1004       -18
+##  5      554        -6      812       -25
+##  6      554        -4      740        12
+##  7      555        -5      913        19
+##  8      557        -3      709       -14
+##  9      557        -3      838        -8
+## 10      558        -2      753         8
+## # … with 336,766 more rows</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="chapter-5.html#cb89-1"></a><span class="co"># you can also select by column position number</span></span>
+<span id="cb89-2"><a href="chapter-5.html#cb89-2"></a>flights <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">select</span>(<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">9</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 336,776 × 4
+##    dep_time dep_delay arr_time arr_delay
+##       &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1      517         2      830        11
+##  2      533         4      850        20
+##  3      542         2      923        33
+##  4      544        -1     1004       -18
+##  5      554        -6      812       -25
+##  6      554        -4      740        12
+##  7      555        -5      913        19
+##  8      557        -3      709       -14
+##  9      557        -3      838        -8
+## 10      558        -2      753         8
+## # … with 336,766 more rows</code></pre>
+<p>*these are the reasonable ways to do this, you could do ridiculous things like subtracting every name but those you want</p>
+</div>
+<div id="question-2-what-happens-if-you-include-the-name-of-a-variable-multiple-times-in-a-select-call" class="section level3">
+<h3><span class="header-section-number">4.3.2</span> Question 2: What happens if you include the name of a variable multiple times in a select() call?</h3>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="chapter-5.html#cb91-1"></a>flights <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(year, year, month,day, year)</span></code></pre></div>
+<pre><code>## # A tibble: 336,776 × 3
+##     year month   day
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;
+##  1  2013     1     1
+##  2  2013     1     1
+##  3  2013     1     1
+##  4  2013     1     1
+##  5  2013     1     1
+##  6  2013     1     1
+##  7  2013     1     1
+##  8  2013     1     1
+##  9  2013     1     1
+## 10  2013     1     1
+## # … with 336,766 more rows</code></pre>
+<p>It will only print the variable one time, regardless of how many times you call the variable name in select()</p>
+</div>
+<div id="question-3-what-does-the-any_of-function-do-why-might-it-be-helpful-in-conjunction-with-this-vector" class="section level3">
+<h3><span class="header-section-number">4.3.3</span> Question 3: What does the any_of() function do? Why might it be helpful in conjunction with this vector?</h3>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="chapter-5.html#cb93-1"></a>vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>, <span class="st">&quot;dep_delay&quot;</span>, <span class="st">&quot;arr_delay&quot;</span>)</span>
+<span id="cb93-2"><a href="chapter-5.html#cb93-2"></a>flights <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">select</span>(<span class="kw">any_of</span>(vars))</span></code></pre></div>
+<pre><code>## # A tibble: 336,776 × 5
+##     year month   day dep_delay arr_delay
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1  2013     1     1         2        11
+##  2  2013     1     1         4        20
+##  3  2013     1     1         2        33
+##  4  2013     1     1        -1       -18
+##  5  2013     1     1        -6       -25
+##  6  2013     1     1        -4        12
+##  7  2013     1     1        -5        19
+##  8  2013     1     1        -3       -14
+##  9  2013     1     1        -3        -8
+## 10  2013     1     1        -2         8
+## # … with 336,766 more rows</code></pre>
+<p>any_of() select variables in a character vector and does not check for missing variables.</p>
+</div>
+<div id="question-4-does-the-result-of-running-the-following-code-surprise-you-how-do-the-select-helpers-deal-with-case-by-default-how-can-you-change-that-default" class="section level3">
+<h3><span class="header-section-number">4.3.4</span> Question 4: Does the result of running the following code surprise you? How do the select helpers deal with case by default? How can you change that default?</h3>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="chapter-5.html#cb95-1"></a><span class="kw">select</span>(flights, <span class="kw">contains</span>(<span class="st">&quot;TIME&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 336,776 × 8
+##    dep_time sched_dep_time arr_time sched_arr_time air_time time_hour           min_since_mid_dep_time min_since_mid_sched_…
+##       &lt;int&gt;          &lt;int&gt;    &lt;int&gt;          &lt;int&gt;    &lt;dbl&gt; &lt;dttm&gt;                               &lt;dbl&gt;                 &lt;dbl&gt;
+##  1      517            515      830            819      227 2013-01-01 05:00:00                    317                   315
+##  2      533            529      850            830      227 2013-01-01 05:00:00                    333                   329
+##  3      542            540      923            850      160 2013-01-01 05:00:00                    342                   340
+##  4      544            545     1004           1022      183 2013-01-01 05:00:00                    344                   345
+##  5      554            600      812            837      116 2013-01-01 06:00:00                    354                   360
+##  6      554            558      740            728      150 2013-01-01 05:00:00                    354                   358
+##  7      555            600      913            854      158 2013-01-01 06:00:00                    355                   360
+##  8      557            600      709            723       53 2013-01-01 06:00:00                    357                   360
+##  9      557            600      838            846      140 2013-01-01 06:00:00                    357                   360
+## 10      558            600      753            745      138 2013-01-01 06:00:00                    358                   360
+## # … with 336,766 more rows</code></pre>
+<p>No, as the code prints all the variables that contain the string “time” within it. The default is that ignore.case = TRUE, so the capitalization within the code wouldn’t effect the output. You can change ignore.case = FALSE to make it case dependent.</p>
+</div>
+</div>
+<div id="exercises" class="section level2">
+<h2><span class="header-section-number">4.4</span> 5.5.2 Exercises</h2>
+<div id="question-1-currently-dep_time-and-sched_dep_time-are-convenient-to-look-at-but-hard-to-compute-with-because-theyre-not-really-continuous-numbers.-convert-them-to-a-more-convenient-representation-of-number-of-minutes-since-midnight." class="section level3">
+<h3><span class="header-section-number">4.4.1</span> Question 1: Currently dep_time and sched_dep_time are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.</h3>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="chapter-5.html#cb97-1"></a>flights &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb97-2"><a href="chapter-5.html#cb97-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">min_since_mid_dep_time =</span> dep_time <span class="op">%/%</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">+</span><span class="st"> </span>dep_time <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>)</span>
+<span id="cb97-3"><a href="chapter-5.html#cb97-3"></a></span>
+<span id="cb97-4"><a href="chapter-5.html#cb97-4"></a>flights &lt;-<span class="st"> </span>flights <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb97-5"><a href="chapter-5.html#cb97-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">min_since_mid_sched_dep_time =</span> sched_dep_time<span class="op">%/%</span><span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span><span class="dv">60</span> <span class="op">+</span><span class="st"> </span>sched_dep_time <span class="op">%%</span><span class="st"> </span><span class="dv">100</span>)</span></code></pre></div>
+</div>
+<div id="question-2-compare-air_time-with-arr_time---dep_time.-what-do-you-expect-to-see-what-do-you-see-what-do-you-need-to-do-to-fix-it" class="section level3">
+<h3><span class="header-section-number">4.4.2</span> Question 2: Compare air_time with arr_time - dep_time. What do you expect to see? What do you see? What do you need to do to fix it?</h3>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="chapter-5.html#cb98-1"></a><span class="kw">head</span>(flights<span class="op">$</span>air_time)</span></code></pre></div>
+<pre><code>## [1] 227 227 160 183 116 150</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="chapter-5.html#cb100-1"></a>airtime2 &lt;-<span class="st"> </span>flights<span class="op">$</span>arr_time <span class="op">-</span><span class="st"> </span>flights<span class="op">$</span>dep_time</span>
+<span id="cb100-2"><a href="chapter-5.html#cb100-2"></a><span class="kw">head</span>(airtime2)</span></code></pre></div>
+<pre><code>## [1] 313 317 381 460 258 186</code></pre>
+<p>The air_time’s are smaller than the (arr_time-dep_time)’s. This is because the arr_time and dep_time are written not in the minutes since midnight but rather just the hourminutes of time (i.e. 315 = 3:15) together. air_time is the total amount of time spent in the air in minutes. Therefore, to fix this, you should use calculate the minutes</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="chapter-4.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/chapter-4-5.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["r4dsexercises.pdf", "r4dsexercises.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

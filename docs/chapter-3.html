@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Chapter 3 | R4DS Exercise Solutions</title>
+  <meta name="description" content="going through the r4ds exercsies" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Chapter 3 | R4DS Exercise Solutions" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="going through the r4ds exercsies" />
+  <meta name="github-repo" content="mlombardo27/r4ds_workthrough" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Chapter 3 | R4DS Exercise Solutions" />
+  
+  <meta name="twitter:description" content="going through the r4ds exercsies" />
+  
+
+<meta name="author" content="Maddie Lombardo" />
+
+
+<meta name="date" content="2022-01-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="chapter-4.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="chapter-3.html"><a href="chapter-3.html"><i class="fa fa-check"></i><b>2</b> Chapter 3</a><ul>
+<li class="chapter" data-level="2.1" data-path="chapter-3.html"><a href="chapter-3.html#chapter-3.2.4-exercises"><i class="fa fa-check"></i><b>2.1</b> Chapter 3.2.4 Exercises</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="chapter-3.html"><a href="chapter-3.html#question-1-run-ggplotdata-mpg.-what-do-you-see"><i class="fa fa-check"></i><b>2.1.1</b> Question 1: Run ggplot(data = mpg). What do you see?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="chapter-3.html"><a href="chapter-3.html#question-2-how-many-rows-are-in-mpg-how-many-columns"><i class="fa fa-check"></i><b>2.1.2</b> Question 2: How many rows are in mpg? How many columns?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="chapter-3.html"><a href="chapter-3.html#question-3-what-does-the-drv-variable-describe-read-the-help-for-mpg-to-find-out."><i class="fa fa-check"></i><b>2.1.3</b> Question 3: What does the drv variable describe? Read the help for ?mpg to find out.</a></li>
+<li class="chapter" data-level="2.1.4" data-path="chapter-3.html"><a href="chapter-3.html#question-4-make-a-scatterplot-of-hwy-vs-cyl."><i class="fa fa-check"></i><b>2.1.4</b> Question 4: Make a scatterplot of hwy vs cyl.</a></li>
+<li class="chapter" data-level="2.1.5" data-path="chapter-3.html"><a href="chapter-3.html#question-5-what-happens-if-you-make-a-scatterplot-of-class-vs-drv-why-is-the-plot-not-useful"><i class="fa fa-check"></i><b>2.1.5</b> Question 5: What happens if you make a scatterplot of class vs drv? Why is the plot not useful?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="chapter-3.html"><a href="chapter-3.html#chapter-3.3.1-exercises"><i class="fa fa-check"></i><b>2.2</b> Chapter 3.3.1 Exercises</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="chapter-3.html"><a href="chapter-3.html#question-1-whats-gone-wrong-with-this-code-why-are-the-points-not-blue"><i class="fa fa-check"></i><b>2.2.1</b> Question 1: What’s gone wrong with this code? Why are the points not blue?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="chapter-3.html"><a href="chapter-3.html#question-2which-variables-in-mpg-are-categorical-which-variables-are-continuous-hint-type-mpg-to-read-the-documentation-for-the-dataset.-how-can-you-see-this-information-when-you-run-mpg"><i class="fa fa-check"></i><b>2.2.2</b> Question 2:Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset). How can you see this information when you run mpg?</a></li>
+<li class="chapter" data-level="2.2.3" data-path="chapter-3.html"><a href="chapter-3.html#question-3map-a-continuous-variable-to-color-size-and-shape.-how-do-these-aesthetics-behave-differently-for-categorical-vs.-continuous-variables"><i class="fa fa-check"></i><b>2.2.3</b> Question 3:Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables?</a></li>
+<li class="chapter" data-level="2.2.4" data-path="chapter-3.html"><a href="chapter-3.html#question-4-what-happens-if-you-map-the-same-variable-to-multiple-aesthetics"><i class="fa fa-check"></i><b>2.2.4</b> Question 4: What happens if you map the same variable to multiple aesthetics?</a></li>
+<li class="chapter" data-level="2.2.5" data-path="chapter-3.html"><a href="chapter-3.html#question-5-what-does-the-stroke-aesthetic-do-what-shapes-does-it-work-with-hint-use-geom_point"><i class="fa fa-check"></i><b>2.2.5</b> Question 5: What does the stroke aesthetic do? What shapes does it work with? (Hint: use ?geom_point)</a></li>
+<li class="chapter" data-level="2.2.6" data-path="chapter-3.html"><a href="chapter-3.html#question-6-what-happens-if-you-map-an-aesthetic-to-something-other-than-a-variable-name-like-aescolour-displ-5-note-youll-also-need-to-specify-x-and-y."><i class="fa fa-check"></i><b>2.2.6</b> Question 6: What happens if you map an aesthetic to something other than a variable name, like aes(colour = displ &lt; 5)? Note, you’ll also need to specify x and y.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="chapter-3.html"><a href="chapter-3.html#chapter-3.5.1-exercises"><i class="fa fa-check"></i><b>2.3</b> Chapter 3.5.1 Exercises</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="chapter-3.html"><a href="chapter-3.html#question-1-what-happens-if-you-facet-on-a-continuous-variable"><i class="fa fa-check"></i><b>2.3.1</b> Question 1: What happens if you facet on a continuous variable?</a></li>
+<li class="chapter" data-level="2.3.2" data-path="chapter-3.html"><a href="chapter-3.html#question-2-what-happens-if-you-facet-on-a-continuous-variable"><i class="fa fa-check"></i><b>2.3.2</b> Question 2: What happens if you facet on a continuous variable?</a></li>
+<li class="chapter" data-level="2.3.3" data-path="chapter-3.html"><a href="chapter-3.html#question-3-what-plots-does-the-following-code-make-what-does-.-do"><i class="fa fa-check"></i><b>2.3.3</b> Question 3: What plots does the following code make? What does . do?</a></li>
+<li class="chapter" data-level="2.3.4" data-path="chapter-3.html"><a href="chapter-3.html#question-4-take-the-first-faceted-plot-in-this-section.-what-are-the-advantages-to-using-faceting-instead-of-the-colour-aesthetic-what-are-the-disadvantages-how-might-the-balance-change-if-you-had-a-larger-dataset"><i class="fa fa-check"></i><b>2.3.4</b> Question 4: Take the first faceted plot in this section. What are the advantages to using faceting instead of the colour aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?</a></li>
+<li class="chapter" data-level="2.3.5" data-path="chapter-3.html"><a href="chapter-3.html#question-5-read-facet_wrap.-what-does-nrow-do-what-does-ncol-do-what-other-options-control-the-layout-of-the-individual-panels-why-doesnt-facet_grid-have-nrow-and-ncol-arguments"><i class="fa fa-check"></i><b>2.3.5</b> Question 5: Read ?facet_wrap. What does nrow do? What does ncol do? What other options control the layout of the individual panels? Why doesn’t facet_grid() have nrow and ncol arguments?</a></li>
+<li class="chapter" data-level="2.3.6" data-path="chapter-3.html"><a href="chapter-3.html#question-6-when-using-facet_grid-you-should-usually-put-the-variable-with-more-unique-levels-in-the-columns.-why"><i class="fa fa-check"></i><b>2.3.6</b> Question 6: When using facet_grid() you should usually put the variable with more unique levels in the columns. Why?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="chapter-3.html"><a href="chapter-3.html#chapter-3.6.1-excersises"><i class="fa fa-check"></i><b>2.4</b> Chapter 3.6.1 Excersises</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="chapter-3.html"><a href="chapter-3.html#question-1-what-geom-would-you-use-to-draw-a-line-chart-a-boxplot-a-histogram-an-area-chart"><i class="fa fa-check"></i><b>2.4.1</b> Question 1: What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?</a></li>
+<li class="chapter" data-level="2.4.2" data-path="chapter-3.html"><a href="chapter-3.html#question-2-run-this-code-in-your-head-and-predict-what-the-output-will-look-like.-then-run-the-code-in-r-and-check-your-predictions."><i class="fa fa-check"></i><b>2.4.2</b> Question 2: Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.</a></li>
+<li class="chapter" data-level="2.4.3" data-path="chapter-3.html"><a href="chapter-3.html#question-3-what-does-show.legend-false-do-what-happens-if-you-remove-it"><i class="fa fa-check"></i><b>2.4.3</b> Question 3: What does show.legend = FALSE do? What happens if you remove it?</a></li>
+<li class="chapter" data-level="2.4.4" data-path="chapter-3.html"><a href="chapter-3.html#question-4-what-does-the-se-argument-to-geom_smooth-do"><i class="fa fa-check"></i><b>2.4.4</b> Question 4: What does the se argument to geom_smooth() do?</a></li>
+<li class="chapter" data-level="2.4.5" data-path="chapter-3.html"><a href="chapter-3.html#question-5-will-these-two-graphs-look-different-whywhy-not"><i class="fa fa-check"></i><b>2.4.5</b> Question 5: Will these two graphs look different? Why/why not?</a></li>
+<li class="chapter" data-level="2.4.6" data-path="chapter-3.html"><a href="chapter-3.html#question-6-recreate-the-r-code-necessary-to-generate-the-following-graphs."><i class="fa fa-check"></i><b>2.4.6</b> Question 6: Recreate the R code necessary to generate the following graphs.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="chapter-3.html"><a href="chapter-3.html#chapter-3.7.1-exercises"><i class="fa fa-check"></i><b>2.5</b> Chapter 3.7.1 Exercises</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="chapter-3.html"><a href="chapter-3.html#question-1-what-is-the-default-geom-associated-with-stat_summary-how-could-you-rewrite-the-previous-plot-to-use-that-geom-function-instead-of-the-stat-function"><i class="fa fa-check"></i><b>2.5.1</b> Question 1: What is the default geom associated with stat_summary()? How could you rewrite the previous plot to use that geom function instead of the stat function?</a></li>
+<li class="chapter" data-level="2.5.2" data-path="chapter-3.html"><a href="chapter-3.html#question-2-what-does-geom_col-do-how-is-it-different-to-geom_bar"><i class="fa fa-check"></i><b>2.5.2</b> Question 2: What does geom_col() do? How is it different to geom_bar()?</a></li>
+<li class="chapter" data-level="2.5.3" data-path="chapter-3.html"><a href="chapter-3.html#question-3-most-geoms-and-stats-come-in-pairs-that-are-almost-always-used-in-concert.-read-through-the-documentation-and-make-a-list-of-all-the-pairs.-what-do-they-have-in-common"><i class="fa fa-check"></i><b>2.5.3</b> Question 3: Most geoms and stats come in pairs that are almost always used in concert. Read through the documentation and make a list of all the pairs. What do they have in common?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="chapter-3.html"><a href="chapter-3.html#question-4-what-variables-does-stat_smooth-compute-what-parameters-control-its-behaviour"><i class="fa fa-check"></i><b>2.5.4</b> Question 4: What variables does stat_smooth() compute? What parameters control its behaviour?</a></li>
+<li class="chapter" data-level="2.5.5" data-path="chapter-3.html"><a href="chapter-3.html#question-5-in-our-proportion-bar-chart-we-need-to-set-group-1.-why-in-other-words-what-is-the-problem-with-these-two-graphs"><i class="fa fa-check"></i><b>2.5.5</b> Question 5: In our proportion bar chart, we need to set group = 1. Why? In other words what is the problem with these two graphs?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="chapter-3.html"><a href="chapter-3.html#chapter-3.8.1-exercises"><i class="fa fa-check"></i><b>2.6</b> Chapter 3.8.1 Exercises</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="chapter-3.html"><a href="chapter-3.html#question-1-what-is-the-problem-with-this-plot-how-could-you-improve-it"><i class="fa fa-check"></i><b>2.6.1</b> Question 1: What is the problem with this plot? How could you improve it?</a></li>
+<li class="chapter" data-level="2.6.2" data-path="chapter-3.html"><a href="chapter-3.html#question-2-what-parameters-to-geom_jitter-control-the-amount-of-jittering"><i class="fa fa-check"></i><b>2.6.2</b> Question 2: What parameters to geom_jitter() control the amount of jittering?</a></li>
+<li class="chapter" data-level="2.6.3" data-path="chapter-3.html"><a href="chapter-3.html#question-3-compare-and-contrast-geom_jitter-with-geom_count."><i class="fa fa-check"></i><b>2.6.3</b> Question 3: Compare and contrast geom_jitter() with geom_count().</a></li>
+<li class="chapter" data-level="2.6.4" data-path="chapter-3.html"><a href="chapter-3.html#question-4-whats-the-default-position-adjustment-for-geom_boxplot-create-a-visualisation-of-the-mpg-dataset-that-demonstrates-it."><i class="fa fa-check"></i><b>2.6.4</b> Question 4: What’s the default position adjustment for geom_boxplot()? Create a visualisation of the mpg dataset that demonstrates it.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="chapter-3.html"><a href="chapter-3.html#chapter-3.9.1-exercises"><i class="fa fa-check"></i><b>2.7</b> Chapter 3.9.1 Exercises</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="chapter-3.html"><a href="chapter-3.html#question-1-turn-a-stacked-bar-chart-into-a-pie-chart-using-coord_polar."><i class="fa fa-check"></i><b>2.7.1</b> Question 1: Turn a stacked bar chart into a pie chart using coord_polar().</a></li>
+<li class="chapter" data-level="2.7.2" data-path="chapter-3.html"><a href="chapter-3.html#question-2-what-does-labs-do-read-the-documentation."><i class="fa fa-check"></i><b>2.7.2</b> Question 2: What does labs() do? Read the documentation.</a></li>
+<li class="chapter" data-level="2.7.3" data-path="chapter-3.html"><a href="chapter-3.html#question-3-whats-the-difference-between-coord_quickmap-and-coord_map"><i class="fa fa-check"></i><b>2.7.3</b> Question 3: What’s the difference between coord_quickmap() and coord_map()?</a></li>
+<li class="chapter" data-level="2.7.4" data-path="chapter-3.html"><a href="chapter-3.html#question-4-what-does-the-plot-below-tell-you-about-the-relationship-between-city-and-highway-mpg-why-is-coord_fixed-important-what-does-geom_abline-do"><i class="fa fa-check"></i><b>2.7.4</b> Question 4: What does the plot below tell you about the relationship between city and highway mpg? Why is coord_fixed() important? What does geom_abline() do?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chapter-4.html"><a href="chapter-4.html"><i class="fa fa-check"></i><b>3</b> Chapter 4</a><ul>
+<li class="chapter" data-level="3.1" data-path="chapter-4.html"><a href="chapter-4.html#chapter-4.4-exercises"><i class="fa fa-check"></i><b>3.1</b> Chapter 4.4 Exercises</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="chapter-4.html"><a href="chapter-4.html#question-1-why-does-this-code-not-work"><i class="fa fa-check"></i><b>3.1.1</b> Question 1: Why does this code not work?</a></li>
+<li class="chapter" data-level="3.1.2" data-path="chapter-4.html"><a href="chapter-4.html#question-2-tweak-each-of-the-following-r-commands-so-that-they-run-correctly"><i class="fa fa-check"></i><b>3.1.2</b> Question 2: Tweak each of the following R commands so that they run correctly:</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="chapter-5.html"><a href="chapter-5.html"><i class="fa fa-check"></i><b>4</b> Chapter 5</a><ul>
+<li class="chapter" data-level="4.1" data-path="chapter-5.html"><a href="chapter-5.html#chapter-5.2.4-exercises"><i class="fa fa-check"></i><b>4.1</b> Chapter 5.2.4 Exercises</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="chapter-5.html"><a href="chapter-5.html#question-1-find-all-flights-that"><i class="fa fa-check"></i><b>4.1.1</b> Question 1: Find all flights that:</a></li>
+<li class="chapter" data-level="4.1.2" data-path="chapter-5.html"><a href="chapter-5.html#question-2-another-useful-dplyr-filtering-helper-is-between.-what-does-it-do-can-you-use-it-to-simplify-the-code-needed-to-answer-the-previous-challenges"><i class="fa fa-check"></i><b>4.1.2</b> Question 2: Another useful dplyr filtering helper is between(). What does it do? Can you use it to simplify the code needed to answer the previous challenges?</a></li>
+<li class="chapter" data-level="4.1.3" data-path="chapter-5.html"><a href="chapter-5.html#question-3-how-many-flights-have-a-missing-dep_time-what-other-variables-are-missing-what-might-these-rows-represent"><i class="fa fa-check"></i><b>4.1.3</b> Question 3: How many flights have a missing dep_time? What other variables are missing? What might these rows represent?</a></li>
+<li class="chapter" data-level="4.1.4" data-path="chapter-5.html"><a href="chapter-5.html#question-4-why-is-na-0-not-missing-why-is-na-true-not-missing-why-is-false-na-not-missing-can-you-figure-out-the-general-rule-na-0-is-a-tricky-counterexample"><i class="fa fa-check"></i><b>4.1.4</b> Question 4: Why is NA ^ 0 not missing? Why is NA | TRUE not missing? Why is FALSE &amp; NA not missing? Can you figure out the general rule? (NA * 0 is a tricky counterexample!)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="chapter-5.html"><a href="chapter-5.html#chapter-5.3.1-exercises"><i class="fa fa-check"></i><b>4.2</b> Chapter 5.3.1 Exercises</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="chapter-5.html"><a href="chapter-5.html#question-1-how-could-you-use-arrange-to-sort-all-missing-values-to-the-start-hint-use-is.na."><i class="fa fa-check"></i><b>4.2.1</b> Question 1: How could you use arrange() to sort all missing values to the start? (Hint: use is.na()).</a></li>
+<li class="chapter" data-level="4.2.2" data-path="chapter-5.html"><a href="chapter-5.html#question-2-sort-flights-to-find-the-most-delayed-flights.-find-the-flights-that-left-earliest."><i class="fa fa-check"></i><b>4.2.2</b> Question 2: Sort flights to find the most delayed flights. Find the flights that left earliest.</a></li>
+<li class="chapter" data-level="4.2.3" data-path="chapter-5.html"><a href="chapter-5.html#question-3-sort-flights-to-find-the-fastest-highest-speed-flights."><i class="fa fa-check"></i><b>4.2.3</b> Question 3: Sort flights to find the fastest (highest speed) flights.</a></li>
+<li class="chapter" data-level="4.2.4" data-path="chapter-5.html"><a href="chapter-5.html#question-4-which-flights-travelled-the-farthest-which-travelled-the-shortest"><i class="fa fa-check"></i><b>4.2.4</b> Question 4: Which flights travelled the farthest? Which travelled the shortest?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="chapter-5.html"><a href="chapter-5.html#chapter-5.4.1-exercises"><i class="fa fa-check"></i><b>4.3</b> Chapter 5.4.1 Exercises</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="chapter-5.html"><a href="chapter-5.html#question-1-brainstorm-as-many-ways-as-possible-to-select-dep_time-dep_delay-arr_time-and-arr_delay-from-flights."><i class="fa fa-check"></i><b>4.3.1</b> Question 1: Brainstorm as many ways as possible to select dep_time, dep_delay, arr_time, and arr_delay from flights.</a></li>
+<li class="chapter" data-level="4.3.2" data-path="chapter-5.html"><a href="chapter-5.html#question-2-what-happens-if-you-include-the-name-of-a-variable-multiple-times-in-a-select-call"><i class="fa fa-check"></i><b>4.3.2</b> Question 2: What happens if you include the name of a variable multiple times in a select() call?</a></li>
+<li class="chapter" data-level="4.3.3" data-path="chapter-5.html"><a href="chapter-5.html#question-3-what-does-the-any_of-function-do-why-might-it-be-helpful-in-conjunction-with-this-vector"><i class="fa fa-check"></i><b>4.3.3</b> Question 3: What does the any_of() function do? Why might it be helpful in conjunction with this vector?</a></li>
+<li class="chapter" data-level="4.3.4" data-path="chapter-5.html"><a href="chapter-5.html#question-4-does-the-result-of-running-the-following-code-surprise-you-how-do-the-select-helpers-deal-with-case-by-default-how-can-you-change-that-default"><i class="fa fa-check"></i><b>4.3.4</b> Question 4: Does the result of running the following code surprise you? How do the select helpers deal with case by default? How can you change that default?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="chapter-5.html"><a href="chapter-5.html#exercises"><i class="fa fa-check"></i><b>4.4</b> 5.5.2 Exercises</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="chapter-5.html"><a href="chapter-5.html#question-1-currently-dep_time-and-sched_dep_time-are-convenient-to-look-at-but-hard-to-compute-with-because-theyre-not-really-continuous-numbers.-convert-them-to-a-more-convenient-representation-of-number-of-minutes-since-midnight."><i class="fa fa-check"></i><b>4.4.1</b> Question 1: Currently dep_time and sched_dep_time are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.</a></li>
+<li class="chapter" data-level="4.4.2" data-path="chapter-5.html"><a href="chapter-5.html#question-2-compare-air_time-with-arr_time---dep_time.-what-do-you-expect-to-see-what-do-you-see-what-do-you-need-to-do-to-fix-it"><i class="fa fa-check"></i><b>4.4.2</b> Question 2: Compare air_time with arr_time - dep_time. What do you expect to see? What do you see? What do you need to do to fix it?</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R4DS Exercise Solutions</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="chapter-3" class="section level1">
+<h1><span class="header-section-number">2</span> Chapter 3</h1>
+<div id="chapter-3.2.4-exercises" class="section level2">
+<h2><span class="header-section-number">2.1</span> Chapter 3.2.4 Exercises</h2>
+<div id="question-1-run-ggplotdata-mpg.-what-do-you-see" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Question 1: Run ggplot(data = mpg). What do you see?</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="chapter-3.html#cb1-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) </span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.2.4%20Question%201-1.png" width="672" /></p>
+<p>This line of code does not output a graph as there is no geom function to tell R studio what to output. Need ‘+ geom_point(mapping = aes(x = displ, y = ’variable’))’ to see anything</p>
+</div>
+<div id="question-2-how-many-rows-are-in-mpg-how-many-columns" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Question 2: How many rows are in mpg? How many columns?</h3>
+<p>234 rows, 11 columns</p>
+</div>
+<div id="question-3-what-does-the-drv-variable-describe-read-the-help-for-mpg-to-find-out." class="section level3">
+<h3><span class="header-section-number">2.1.3</span> Question 3: What does the drv variable describe? Read the help for ?mpg to find out.</h3>
+<p>drv = the type of drive train, f = fwd, r = rwd, 4 = 4wd</p>
+</div>
+<div id="question-4-make-a-scatterplot-of-hwy-vs-cyl." class="section level3">
+<h3><span class="header-section-number">2.1.4</span> Question 4: Make a scatterplot of hwy vs cyl.</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="chapter-3.html#cb2-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></span>
+<span id="cb2-2"><a href="chapter-3.html#cb2-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> hwy, <span class="dt">y =</span> cyl))</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.2.4%20Question%204-1.png" width="672" /></p>
+</div>
+<div id="question-5-what-happens-if-you-make-a-scatterplot-of-class-vs-drv-why-is-the-plot-not-useful" class="section level3">
+<h3><span class="header-section-number">2.1.5</span> Question 5: What happens if you make a scatterplot of class vs drv? Why is the plot not useful?</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="chapter-3.html#cb3-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></span>
+<span id="cb3-2"><a href="chapter-3.html#cb3-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> class, <span class="dt">y =</span> drv))</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.2.4%20Question%205-1.png" width="672" /></p>
+<p>This is not helpful because there are no numerical values in class or drv so a scatterplot wouldn’t be a good way to visualize this data.</p>
+</div>
+</div>
+<div id="chapter-3.3.1-exercises" class="section level2">
+<h2><span class="header-section-number">2.2</span> Chapter 3.3.1 Exercises</h2>
+<div id="question-1-whats-gone-wrong-with-this-code-why-are-the-points-not-blue" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Question 1: What’s gone wrong with this code? Why are the points not blue?</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="chapter-3.html#cb4-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb4-2"><a href="chapter-3.html#cb4-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.3.1%20Question%201-1.png" width="672" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="chapter-3.html#cb5-1"></a><span class="co">#this is incorrect because there is a missing parenthesis after hwy. should be:</span></span>
+<span id="cb5-2"><a href="chapter-3.html#cb5-2"></a></span>
+<span id="cb5-3"><a href="chapter-3.html#cb5-3"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb5-4"><a href="chapter-3.html#cb5-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.3.1%20Question%201-2.png" width="672" /></p>
+</div>
+<div id="question-2which-variables-in-mpg-are-categorical-which-variables-are-continuous-hint-type-mpg-to-read-the-documentation-for-the-dataset.-how-can-you-see-this-information-when-you-run-mpg" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Question 2:Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset). How can you see this information when you run mpg?</h3>
+<p>categorical variables: manufacturer, model, trans, drv, fl, class
+continuous variables: displ, year, cyl, cty, hwy</p>
+<p>you can see this when you run mpg under the columns where it displays the type of variable (cat = <chr> cont = <dbl>, <int>)</p>
+</div>
+<div id="question-3map-a-continuous-variable-to-color-size-and-shape.-how-do-these-aesthetics-behave-differently-for-categorical-vs.-continuous-variables" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Question 3:Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables?</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="chapter-3.html#cb6-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb6-2"><a href="chapter-3.html#cb6-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">size =</span> displ, <span class="dt">color =</span> year, <span class="dt">shape =</span> cyl))</span></code></pre></div>
+<pre><code>## Error: A continuous variable can not be mapped to shape</code></pre>
+<p><img src="r4dsexercises_files/figure-html/3.3.1%20Question%203.1-1.png" width="672" /></p>
+<p>you can’t map a continuous variable to shape</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="chapter-3.html#cb8-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></span>
+<span id="cb8-2"><a href="chapter-3.html#cb8-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> manufacturer, <span class="dt">y =</span> model, <span class="dt">size =</span> model, <span class="dt">color =</span> trans, <span class="dt">shape =</span> class))</span></code></pre></div>
+<pre><code>## Warning: Using size for a discrete variable is not advised.</code></pre>
+<pre><code>## Warning: The shape palette can deal with a maximum of 6 discrete values because more than 6 becomes difficult to
+## discriminate; you have 7. Consider specifying shapes manually if you must have them.</code></pre>
+<pre><code>## Warning: Removed 62 rows containing missing values (geom_point).</code></pre>
+<p><img src="r4dsexercises_files/figure-html/3.3.1%20Question%203.2-1.png" width="672" /></p>
+<p>You shouldn’t use size for a discrete variable; the shape palette can only handle 6 values so any more doesn’t work well; asks you to specify shapes if you have to have them.</p>
+</div>
+<div id="question-4-what-happens-if-you-map-the-same-variable-to-multiple-aesthetics" class="section level3">
+<h3><span class="header-section-number">2.2.4</span> Question 4: What happens if you map the same variable to multiple aesthetics?</h3>
+<p>The points for what you are graphing each have a specific color, size, and shape.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="chapter-3.html#cb12-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></span>
+<span id="cb12-2"><a href="chapter-3.html#cb12-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> manufacturer, <span class="dt">y =</span> model, <span class="dt">size =</span> class, <span class="dt">color =</span> class, <span class="dt">shape =</span> class))</span></code></pre></div>
+<pre><code>## Warning: Using size for a discrete variable is not advised.</code></pre>
+<pre><code>## Warning: The shape palette can deal with a maximum of 6 discrete values because more than 6 becomes difficult to
+## discriminate; you have 7. Consider specifying shapes manually if you must have them.</code></pre>
+<pre><code>## Warning: Removed 62 rows containing missing values (geom_point).</code></pre>
+<p><img src="r4dsexercises_files/figure-html/3.3.1%20Question%204-1.png" width="672" /></p>
+</div>
+<div id="question-5-what-does-the-stroke-aesthetic-do-what-shapes-does-it-work-with-hint-use-geom_point" class="section level3">
+<h3><span class="header-section-number">2.2.5</span> Question 5: What does the stroke aesthetic do? What shapes does it work with? (Hint: use ?geom_point)</h3>
+<p>if a shape had a border, stroke would control the width of the border</p>
+</div>
+<div id="question-6-what-happens-if-you-map-an-aesthetic-to-something-other-than-a-variable-name-like-aescolour-displ-5-note-youll-also-need-to-specify-x-and-y." class="section level3">
+<h3><span class="header-section-number">2.2.6</span> Question 6: What happens if you map an aesthetic to something other than a variable name, like aes(colour = displ &lt; 5)? Note, you’ll also need to specify x and y.</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="chapter-3.html#cb16-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span></span>
+<span id="cb16-2"><a href="chapter-3.html#cb16-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> manufacturer, <span class="dt">y =</span> model, <span class="dt">color =</span> displ <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>))</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.3.1%20Question%206-1.png" width="672" /></p>
+<p>This colors the points based on if the condition displ &lt; 5 is true or false</p>
+</div>
+</div>
+<div id="chapter-3.5.1-exercises" class="section level2">
+<h2><span class="header-section-number">2.3</span> Chapter 3.5.1 Exercises</h2>
+<div id="question-1-what-happens-if-you-facet-on-a-continuous-variable" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Question 1: What happens if you facet on a continuous variable?</h3>
+<p>Creates a new graph for each of the numbers in the continuous variable like displ, see below</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="chapter-3.html#cb17-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb17-2"><a href="chapter-3.html#cb17-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb17-3"><a href="chapter-3.html#cb17-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>displ, <span class="dt">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.5.1%20Question%201-1.png" width="672" /></p>
+</div>
+<div id="question-2-what-happens-if-you-facet-on-a-continuous-variable" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Question 2: What happens if you facet on a continuous variable?</h3>
+<p>The empty cells in the plot with facet_grid(drv ~ cyl) show that there are no points that relate to both variables (cyl, drv). for example, for the cells with 5 cylinders and 4wd, there are no points so cannot plot the displ and hwy for it.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="chapter-3.html#cb18-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb18-2"><a href="chapter-3.html#cb18-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb18-3"><a href="chapter-3.html#cb18-3"></a><span class="st">  </span><span class="kw">facet_grid</span>(drv <span class="op">~</span><span class="st"> </span>cyl)</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.5.1%20Question%202-1.png" width="672" /></p>
+</div>
+<div id="question-3-what-plots-does-the-following-code-make-what-does-.-do" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Question 3: What plots does the following code make? What does . do?</h3>
+<p>The ‘.’ determines where the drv axis will be (on the righthand side vs the top). It is the placeholder for the empty axis.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="chapter-3.html#cb19-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb19-2"><a href="chapter-3.html#cb19-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></span>
+<span id="cb19-3"><a href="chapter-3.html#cb19-3"></a><span class="st">  </span><span class="kw">facet_grid</span>(drv <span class="op">~</span><span class="st"> </span>.) </span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.5.1%20Question%203-1.png" width="672" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="chapter-3.html#cb20-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb20-2"><a href="chapter-3.html#cb20-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></span>
+<span id="cb20-3"><a href="chapter-3.html#cb20-3"></a><span class="st">  </span><span class="kw">facet_grid</span>(. <span class="op">~</span><span class="st"> </span>drv) </span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.5.1%20Question%203-2.png" width="672" /></p>
+</div>
+<div id="question-4-take-the-first-faceted-plot-in-this-section.-what-are-the-advantages-to-using-faceting-instead-of-the-colour-aesthetic-what-are-the-disadvantages-how-might-the-balance-change-if-you-had-a-larger-dataset" class="section level3">
+<h3><span class="header-section-number">2.3.4</span> Question 4: Take the first faceted plot in this section. What are the advantages to using faceting instead of the colour aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?</h3>
+<p>The advantage of using facet wrap instead of color is that it allows you to more easily see differences in hwy and displ for each car type because they are separated into individual graphs. Especially for large datasets, it would be quite difficult to see all of one car types’ data points with color because they could overlap on the graph.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="chapter-3.html#cb21-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb21-2"><a href="chapter-3.html#cb21-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb21-3"><a href="chapter-3.html#cb21-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>class, <span class="dt">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.5.1%20Question%204-1.png" width="672" /></p>
+</div>
+<div id="question-5-read-facet_wrap.-what-does-nrow-do-what-does-ncol-do-what-other-options-control-the-layout-of-the-individual-panels-why-doesnt-facet_grid-have-nrow-and-ncol-arguments" class="section level3">
+<h3><span class="header-section-number">2.3.5</span> Question 5: Read ?facet_wrap. What does nrow do? What does ncol do? What other options control the layout of the individual panels? Why doesn’t facet_grid() have nrow and ncol arguments?</h3>
+<p>nrow is the number of rows, ncol is the number of columns. The other options that control the layout of the panels include: scales, shrink, switch, dir, strip.position. Facet_grid does not have nrow and ncol because it is creating a matrix of panels, and does not on its own have a specified number of columns and rows.</p>
+</div>
+<div id="question-6-when-using-facet_grid-you-should-usually-put-the-variable-with-more-unique-levels-in-the-columns.-why" class="section level3">
+<h3><span class="header-section-number">2.3.6</span> Question 6: When using facet_grid() you should usually put the variable with more unique levels in the columns. Why?</h3>
+<p>Because if you add more levels to the rows, the col axis (y-axis) would be shorter, meaning that it would be harder to see the actual values on the plots.</p>
+</div>
+</div>
+<div id="chapter-3.6.1-excersises" class="section level2">
+<h2><span class="header-section-number">2.4</span> Chapter 3.6.1 Excersises</h2>
+<div id="question-1-what-geom-would-you-use-to-draw-a-line-chart-a-boxplot-a-histogram-an-area-chart" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Question 1: What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?</h3>
+<p>line chart: geom_smooth
+boxplot: geom_boxplot
+histogram: geom_histogram
+area chart: geom_area</p>
+</div>
+<div id="question-2-run-this-code-in-your-head-and-predict-what-the-output-will-look-like.-then-run-the-code-in-r-and-check-your-predictions." class="section level3">
+<h3><span class="header-section-number">2.4.2</span> Question 2: Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.</h3>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="chapter-3.html#cb22-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> drv)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb22-2"><a href="chapter-3.html#cb22-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb22-3"><a href="chapter-3.html#cb22-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="r4dsexercises_files/figure-html/3.6.1%20Question%202-1.png" width="672" /></p>
+</div>
+<div id="question-3-what-does-show.legend-false-do-what-happens-if-you-remove-it" class="section level3">
+<h3><span class="header-section-number">2.4.3</span> Question 3: What does show.legend = FALSE do? What happens if you remove it?</h3>
+<p>show.legend = FALSE will remove the legend key from the plot. If it is not there, the ggplot function assumes it should exist to describe the aesthetics for variables.</p>
+</div>
+<div id="question-4-what-does-the-se-argument-to-geom_smooth-do" class="section level3">
+<h3><span class="header-section-number">2.4.4</span> Question 4: What does the se argument to geom_smooth() do?</h3>
+<p>se shows the confidence interval around the smooth line</p>
+</div>
+<div id="question-5-will-these-two-graphs-look-different-whywhy-not" class="section level3">
+<h3><span class="header-section-number">2.4.5</span> Question 5: Will these two graphs look different? Why/why not?</h3>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="chapter-3.html#cb24-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb24-2"><a href="chapter-3.html#cb24-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb24-3"><a href="chapter-3.html#cb24-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="r4dsexercises_files/figure-html/3.6.1%20Question%205-1.png" width="672" /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="chapter-3.html#cb26-1"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb26-2"><a href="chapter-3.html#cb26-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb26-3"><a href="chapter-3.html#cb26-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy))</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="r4dsexercises_files/figure-html/3.6.1%20Question%205-2.png" width="672" /></p>
+<p>These graphs don’t look different because they are identical in meaning. The top code is much more concise code, as the data and aesthetics are described in the ggplot portion and the point and smooth functions are how the data will plot.</p>
+</div>
+<div id="question-6-recreate-the-r-code-necessary-to-generate-the-following-graphs." class="section level3">
+<h3><span class="header-section-number">2.4.6</span> Question 6: Recreate the R code necessary to generate the following graphs.</h3>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="chapter-3.html#cb28-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb28-2"><a href="chapter-3.html#cb28-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb28-3"><a href="chapter-3.html#cb28-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="r4dsexercises_files/figure-html/3.6.1%20Question%206-1.png" width="672" /></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="chapter-3.html#cb30-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb30-2"><a href="chapter-3.html#cb30-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb30-3"><a href="chapter-3.html#cb30-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">group =</span> drv), <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="r4dsexercises_files/figure-html/3.6.1%20Question%206-2.png" width="672" /></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="chapter-3.html#cb32-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">color =</span> drv)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb32-2"><a href="chapter-3.html#cb32-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb32-3"><a href="chapter-3.html#cb32-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">group =</span> drv), <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="r4dsexercises_files/figure-html/3.6.1%20Question%206-3.png" width="672" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="chapter-3.html#cb34-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb34-2"><a href="chapter-3.html#cb34-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> drv)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb34-3"><a href="chapter-3.html#cb34-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="r4dsexercises_files/figure-html/3.6.1%20Question%206-4.png" width="672" /></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="chapter-3.html#cb36-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb36-2"><a href="chapter-3.html#cb36-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> drv)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb36-3"><a href="chapter-3.html#cb36-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="r4dsexercises_files/figure-html/3.6.1%20Question%206-5.png" width="672" /></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="chapter-3.html#cb38-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb38-2"><a href="chapter-3.html#cb38-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> drv)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb38-3"><a href="chapter-3.html#cb38-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy, <span class="dt">group =</span> drv), <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="r4dsexercises_files/figure-html/3.6.1%20Question%206-6.png" width="672" /></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="chapter-3.html#cb40-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> displ, <span class="dt">y =</span> hwy)) <span class="op">+</span></span>
+<span id="cb40-2"><a href="chapter-3.html#cb40-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span></span>
+<span id="cb40-3"><a href="chapter-3.html#cb40-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> drv), <span class="dt">size =</span> <span class="fl">1.5</span>)</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.6.1%20Question%206-7.png" width="672" /></p>
+</div>
+</div>
+<div id="chapter-3.7.1-exercises" class="section level2">
+<h2><span class="header-section-number">2.5</span> Chapter 3.7.1 Exercises</h2>
+<div id="question-1-what-is-the-default-geom-associated-with-stat_summary-how-could-you-rewrite-the-previous-plot-to-use-that-geom-function-instead-of-the-stat-function" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> Question 1: What is the default geom associated with stat_summary()? How could you rewrite the previous plot to use that geom function instead of the stat function?</h3>
+<p>The default geom is pointrange.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="chapter-3.html#cb41-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb41-2"><a href="chapter-3.html#cb41-2"></a><span class="st">  </span><span class="kw">stat_summary</span>(</span>
+<span id="cb41-3"><a href="chapter-3.html#cb41-3"></a>    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> depth),</span>
+<span id="cb41-4"><a href="chapter-3.html#cb41-4"></a>    <span class="dt">fun.min =</span> min,</span>
+<span id="cb41-5"><a href="chapter-3.html#cb41-5"></a>    <span class="dt">fun.max =</span> max,</span>
+<span id="cb41-6"><a href="chapter-3.html#cb41-6"></a>    <span class="dt">fun =</span> median</span>
+<span id="cb41-7"><a href="chapter-3.html#cb41-7"></a>  )</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.7.1%20Question%201-1.png" width="672" /></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="chapter-3.html#cb42-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb42-2"><a href="chapter-3.html#cb42-2"></a><span class="st">   </span><span class="kw">geom_pointrange</span>(</span>
+<span id="cb42-3"><a href="chapter-3.html#cb42-3"></a>    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> depth),</span>
+<span id="cb42-4"><a href="chapter-3.html#cb42-4"></a>    <span class="dt">stat =</span> <span class="st">&quot;summary&quot;</span></span>
+<span id="cb42-5"><a href="chapter-3.html#cb42-5"></a>  )</span></code></pre></div>
+<pre><code>## No summary function supplied, defaulting to `mean_se()`</code></pre>
+<p><img src="r4dsexercises_files/figure-html/3.7.1%20Question%201-2.png" width="672" /></p>
+</div>
+<div id="question-2-what-does-geom_col-do-how-is-it-different-to-geom_bar" class="section level3">
+<h3><span class="header-section-number">2.5.2</span> Question 2: What does geom_col() do? How is it different to geom_bar()?</h3>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="chapter-3.html#cb44-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price))<span class="op">+</span></span>
+<span id="cb44-2"><a href="chapter-3.html#cb44-2"></a><span class="st">  </span><span class="kw">geom_col</span>()</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.7.1%20Question%202-1.png" width="672" /></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="chapter-3.html#cb45-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> carat, <span class="dt">y =</span> price))<span class="op">+</span></span>
+<span id="cb45-2"><a href="chapter-3.html#cb45-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&#39;identity&#39;</span>)</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.7.1%20Question%202-2.png" width="672" /></p>
+<p>They create the same graph but have different defaults; geom_bar only expects an x variable wherease geom_col requires x and y.</p>
+</div>
+<div id="question-3-most-geoms-and-stats-come-in-pairs-that-are-almost-always-used-in-concert.-read-through-the-documentation-and-make-a-list-of-all-the-pairs.-what-do-they-have-in-common" class="section level3">
+<h3><span class="header-section-number">2.5.3</span> Question 3: Most geoms and stats come in pairs that are almost always used in concert. Read through the documentation and make a list of all the pairs. What do they have in common?</h3>
+<p>geom_bar() -&gt; stat_count()
+geom_bin2d() -&gt; stat_bin_2d()
+geom_boxplot() -&gt; stat_boxplot()
+geom_contour_filled() -&gt; stat_contour_filled()
+geom_contour() -&gt; stat_contour()
+geom_count() -&gt; stat_sum()
+geom_density_2d() -&gt; stat_density_2d()
+geom_density() -&gt; stat_density()
+geom_dotplot() -&gt; stat_bindot()
+geom_function() -&gt; stat_function()
+geom_sf() -&gt; stat_sf()
+geom_sf() -&gt; stat_sf()
+geom_smooth() -&gt; stat_smooth()
+geom_violin() -&gt; stat_ydensity()
+geom_hex() -&gt; stat_bin_hex()
+geom_qq_line() -&gt; stat_qq_line()
+geom_qq() -&gt; stat_qq()
+geom_quantile() -&gt; stat_quantile()</p>
+<p>You can see that each geom type has a stat associated with it; specific to the name and type of graph it creates.</p>
+</div>
+<div id="question-4-what-variables-does-stat_smooth-compute-what-parameters-control-its-behaviour" class="section level3">
+<h3><span class="header-section-number">2.5.4</span> Question 4: What variables does stat_smooth() compute? What parameters control its behaviour?</h3>
+<p>stat_smooth() computes: predicted values (y, x), confidence interval around the mean (ymin or xmin and ymax or ymin), and the standard error (se).</p>
+<p>The behavior of stat_smooth() is controlled by: na.rm, method, formula, se, method.args</p>
+</div>
+<div id="question-5-in-our-proportion-bar-chart-we-need-to-set-group-1.-why-in-other-words-what-is-the-problem-with-these-two-graphs" class="section level3">
+<h3><span class="header-section-number">2.5.5</span> Question 5: In our proportion bar chart, we need to set group = 1. Why? In other words what is the problem with these two graphs?</h3>
+<p>If group = 1 is not included, it will set the height of all the bars as the same. The issue is that the proportions are set inside the groups in this code.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="chapter-3.html#cb46-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb46-2"><a href="chapter-3.html#cb46-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">y =</span> <span class="kw">after_stat</span>(prop)))</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.7.1%20Question%205-1.png" width="672" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="chapter-3.html#cb47-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb47-2"><a href="chapter-3.html#cb47-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">fill =</span> color, <span class="dt">y =</span> <span class="kw">after_stat</span>(prop)))</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.7.1%20Question%205-2.png" width="672" /></p>
+</div>
+</div>
+<div id="chapter-3.8.1-exercises" class="section level2">
+<h2><span class="header-section-number">2.6</span> Chapter 3.8.1 Exercises</h2>
+<div id="question-1-what-is-the-problem-with-this-plot-how-could-you-improve-it" class="section level3">
+<h3><span class="header-section-number">2.6.1</span> Question 1: What is the problem with this plot? How could you improve it?</h3>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="chapter-3.html#cb48-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb48-2"><a href="chapter-3.html#cb48-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.8.1%20Question%201-1.png" width="672" /></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="chapter-3.html#cb49-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb49-2"><a href="chapter-3.html#cb49-2"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb49-3"><a href="chapter-3.html#cb49-3"></a><span class="st">  </span><span class="kw">geom_jitter</span>()</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.8.1%20Question%201-2.png" width="672" /></p>
+<p>The use of geom_jitter() improves this plot because it makes it more visible to see the overlapping points. Without it, there is the issue of overplotting and the graph is less obvious.</p>
+</div>
+<div id="question-2-what-parameters-to-geom_jitter-control-the-amount-of-jittering" class="section level3">
+<h3><span class="header-section-number">2.6.2</span> Question 2: What parameters to geom_jitter() control the amount of jittering?</h3>
+<p>width and height: the amount of vertical and horizontal jitter</p>
+</div>
+<div id="question-3-compare-and-contrast-geom_jitter-with-geom_count." class="section level3">
+<h3><span class="header-section-number">2.6.3</span> Question 3: Compare and contrast geom_jitter() with geom_count().</h3>
+<p>geom_jitter and geom_count both are useful in overplotting situations as they both reveal overlapping points. Geom_jitter makes it visible the points that overlap whereas geom_count provides the number of points overlapping at each location on the graph.</p>
+</div>
+<div id="question-4-whats-the-default-position-adjustment-for-geom_boxplot-create-a-visualisation-of-the-mpg-dataset-that-demonstrates-it." class="section level3">
+<h3><span class="header-section-number">2.6.4</span> Question 4: What’s the default position adjustment for geom_boxplot()? Create a visualisation of the mpg dataset that demonstrates it.</h3>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="chapter-3.html#cb50-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy, <span class="dt">group =</span> drv))<span class="op">+</span></span>
+<span id="cb50-2"><a href="chapter-3.html#cb50-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.8.1%20Question%204.1-1.png" width="672" /></p>
+<p>The default position adjustment for geom_boxplot() is “dodge2.”</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="chapter-3.html#cb51-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy, <span class="dt">group =</span> drv))<span class="op">+</span></span>
+<span id="cb51-2"><a href="chapter-3.html#cb51-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">position =</span> <span class="st">&quot;dodge2&quot;</span>)</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.8.1%20Question%204.2-1.png" width="672" /></p>
+<p>Both graphs are identical, showing that the default position is ‘dodge2.’</p>
+</div>
+</div>
+<div id="chapter-3.9.1-exercises" class="section level2">
+<h2><span class="header-section-number">2.7</span> Chapter 3.9.1 Exercises</h2>
+<div id="question-1-turn-a-stacked-bar-chart-into-a-pie-chart-using-coord_polar." class="section level3">
+<h3><span class="header-section-number">2.7.1</span> Question 1: Turn a stacked bar chart into a pie chart using coord_polar().</h3>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="chapter-3.html#cb52-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb52-2"><a href="chapter-3.html#cb52-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(</span>
+<span id="cb52-3"><a href="chapter-3.html#cb52-3"></a>    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">fill =</span> cut), </span>
+<span id="cb52-4"><a href="chapter-3.html#cb52-4"></a>    <span class="dt">show.legend =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb52-5"><a href="chapter-3.html#cb52-5"></a>    <span class="dt">width =</span> <span class="dv">1</span></span>
+<span id="cb52-6"><a href="chapter-3.html#cb52-6"></a>  ) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb52-7"><a href="chapter-3.html#cb52-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">aspect.ratio =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb52-8"><a href="chapter-3.html#cb52-8"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="ot">NULL</span>, <span class="dt">y =</span> <span class="ot">NULL</span>)<span class="op">+</span></span>
+<span id="cb52-9"><a href="chapter-3.html#cb52-9"></a><span class="st">  </span><span class="kw">coord_flip</span>()</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.9.1%20Question%201-1.png" width="672" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="chapter-3.html#cb53-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> diamonds) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb53-2"><a href="chapter-3.html#cb53-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(</span>
+<span id="cb53-3"><a href="chapter-3.html#cb53-3"></a>    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cut, <span class="dt">fill =</span> cut), </span>
+<span id="cb53-4"><a href="chapter-3.html#cb53-4"></a>    <span class="dt">show.legend =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb53-5"><a href="chapter-3.html#cb53-5"></a>    <span class="dt">width =</span> <span class="dv">1</span></span>
+<span id="cb53-6"><a href="chapter-3.html#cb53-6"></a>  ) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb53-7"><a href="chapter-3.html#cb53-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">aspect.ratio =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb53-8"><a href="chapter-3.html#cb53-8"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="ot">NULL</span>, <span class="dt">y =</span> <span class="ot">NULL</span>)<span class="op">+</span></span>
+<span id="cb53-9"><a href="chapter-3.html#cb53-9"></a><span class="st">  </span><span class="kw">coord_flip</span>()<span class="op">+</span></span>
+<span id="cb53-10"><a href="chapter-3.html#cb53-10"></a><span class="st">  </span><span class="kw">coord_polar</span>()</span></code></pre></div>
+<pre><code>## Coordinate system already present. Adding new coordinate system, which will replace the existing one.</code></pre>
+<p><img src="r4dsexercises_files/figure-html/3.9.1%20Question%201-2.png" width="672" /></p>
+</div>
+<div id="question-2-what-does-labs-do-read-the-documentation." class="section level3">
+<h3><span class="header-section-number">2.7.2</span> Question 2: What does labs() do? Read the documentation.</h3>
+<p>labs() adds labels to your graph. It provides options to set a title, subtitle, caption, tag, or x/y labels.</p>
+</div>
+<div id="question-3-whats-the-difference-between-coord_quickmap-and-coord_map" class="section level3">
+<h3><span class="header-section-number">2.7.3</span> Question 3: What’s the difference between coord_quickmap() and coord_map()?</h3>
+<p>coord_quickmap() is a quick approximation that preserves straight lines for the 2D plane from the spherical earth (so is better for smaller areas close to equator); coord_map(), on the other hand, requires a lot of computation because it projects a portion of the earth onto a 2D plane but doesn’t preserve straight lines.</p>
+</div>
+<div id="question-4-what-does-the-plot-below-tell-you-about-the-relationship-between-city-and-highway-mpg-why-is-coord_fixed-important-what-does-geom_abline-do" class="section level3">
+<h3><span class="header-section-number">2.7.4</span> Question 4: What does the plot below tell you about the relationship between city and highway mpg? Why is coord_fixed() important? What does geom_abline() do?</h3>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="chapter-3.html#cb55-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mpg, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> cty, <span class="dt">y =</span> hwy)) <span class="op">+</span></span>
+<span id="cb55-2"><a href="chapter-3.html#cb55-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb55-3"><a href="chapter-3.html#cb55-3"></a><span class="st">  </span><span class="kw">geom_abline</span>() <span class="op">+</span></span>
+<span id="cb55-4"><a href="chapter-3.html#cb55-4"></a><span class="st">  </span><span class="kw">coord_fixed</span>()</span></code></pre></div>
+<p><img src="r4dsexercises_files/figure-html/3.9.1%20Question%204-1.png" width="672" /></p>
+<p>The plot tells you that there is higher highway miles per gallon compared to city miles per gallon for all cars.
+coord_fixed() is important because it does not stretch out the graph so that it is a perfect square. It better shows the actual numerical value’s position for hwy/cty.
+geom_abline() adds a reference line for the correlation between hwy and cty.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chapter-4.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/chapter-3.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["r4dsexercises.pdf", "r4dsexercises.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

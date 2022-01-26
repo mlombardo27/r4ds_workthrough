@@ -12,6 +12,6 @@ github-repo:  mlombardo27/r4ds_workthrough
 description: "going through the r4ds exercsies"
 ---
 
-# Prerequisites
+# Introduction
 
-I'm going to put some nonsense here and see what happens
+Here is a book formatted correctly
