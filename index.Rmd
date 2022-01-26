@@ -14,4 +14,9 @@ description: "going through the r4ds exercsies"
 
 # Introduction
 
-Here is a book formatted correctly
+This is Maddie Lombardo's solutions to the R for Data Science book
+
+# Book
+
+The link to the book can be found here: 
+https://r4ds.had.co.nz/
