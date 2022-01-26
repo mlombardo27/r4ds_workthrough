@@ -1,0 +1,101 @@
+--- 
+title: "R4DS Exercise Solutions"
+author: "Maddie"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+github-repo: rstudio/bookdown-demo
+description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+---
+
+# Prerequisites
+
+I'm going to put some nonsense here and see what happens
+
+<!--chapter:end:index.Rmd-->
+
+
+# Chapter 3
+
+Placeholder
+
+
+## Chapter 3.2.4 Exercises
+### Question 1: Run ggplot(data = mpg). What do you see?
+### Question 2: How many rows are in mpg? How many columns?
+### Question 3: What does the drv variable describe? Read the help for ?mpg to find out.
+### Question 4: Make a scatterplot of hwy vs cyl.
+### Question 5: What happens if you make a scatterplot of class vs drv? Why is the plot not useful?
+## Chapter 3.3.1 Exercises
+### Question 1: What’s gone wrong with this code? Why are the points not blue?
+### Question 2:Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset). How can you see this information when you run mpg?
+### Question 3:Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables?
+### Question 4: What happens if you map the same variable to multiple aesthetics?
+### Question 5: What does the stroke aesthetic do? What shapes does it work with? (Hint: use ?geom_point)
+### Question 6: What happens if you map an aesthetic to something other than a variable name, like aes(colour = displ < 5)? Note, you’ll also need to specify x and y.
+## Chapter 3.5.1 Exercises
+### Question 1: What happens if you facet on a continuous variable?
+### Question 2: What happens if you facet on a continuous variable?
+### Question 3: What plots does the following code make? What does . do?
+### Question 4: Take the first faceted plot in this section. What are the advantages to using faceting instead of the colour aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?
+### Question 5: Read ?facet_wrap. What does nrow do? What does ncol do? What other options control the layout of the individual panels? Why doesn’t facet_grid() have nrow and ncol arguments?
+### Question 6: When using facet_grid() you should usually put the variable with more unique levels in the columns. Why?
+## Chapter 3.6.1 Excersises
+### Question 1: What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?
+### Question 2: Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
+### Question 3: What does show.legend = FALSE do? What happens if you remove it?
+### Question 4: What does the se argument to geom_smooth() do?
+### Question 5: Will these two graphs look different? Why/why not?
+### Question 6: Recreate the R code necessary to generate the following graphs.
+## Chapter 3.7.1 Exercises
+### Question 1: What is the default geom associated with stat_summary()? How could you rewrite the previous plot to use that geom function instead of the stat function?
+### Question 2: What does geom_col() do? How is it different to geom_bar()?
+### Question 3: Most geoms and stats come in pairs that are almost always used in concert. Read through the documentation and make a list of all the pairs. What do they have in common?
+### Question 4: What variables does stat_smooth() compute? What parameters control its behaviour?
+### Question 5: In our proportion bar chart, we need to set group = 1. Why? In other words what is the problem with these two graphs?
+## Chapter 3.8.1 Exercises
+### Question 1: What is the problem with this plot? How could you improve it?
+### Question 2: What parameters to geom_jitter() control the amount of jittering?
+### Question 3: Compare and contrast geom_jitter() with geom_count().
+### Question 4: What’s the default position adjustment for geom_boxplot()? Create a visualisation of the mpg dataset that demonstrates it.
+## Chapter 3.9.1 Exercises
+### Question 1: Turn a stacked bar chart into a pie chart using coord_polar().
+### Question 2: What does labs() do? Read the documentation.
+### Question 3: What’s the difference between coord_quickmap() and coord_map()?
+### Question 4: What does the plot below tell you about the relationship between city and highway mpg? Why is coord_fixed() important? What does geom_abline() do?
+
+<!--chapter:end:chapter-3.Rmd-->
+
+
+# Chapter 4
+
+Placeholder
+
+
+## Chapter 4.4 Exercises
+### Question 1: Why does this code not work?
+### Question 2: Tweak each of the following R commands so that they run correctly:
+## Chapter 5.2.4 Exercises
+### Question 1: Find all flights that:
+### Question 2: Another useful dplyr filtering helper is between(). What does it do? Can you use it to simplify the code needed to answer the previous challenges?
+### Question 3: How many flights have a missing dep_time? What other variables are missing? What might these rows represent?
+### Question 4: Why is NA ^ 0 not missing? Why is NA | TRUE not missing? Why is FALSE & NA not missing? Can you figure out the general rule? (NA * 0 is a tricky counterexample!)
+## Chapter 5.3.1 Exercises
+### Question 1: How could you use arrange() to sort all missing values to the start? (Hint: use is.na()).
+### Question 2: Sort flights to find the most delayed flights. Find the flights that left earliest.
+### Question 3: Sort flights to find the fastest (highest speed) flights.
+### Question 4: Which flights travelled the farthest? Which travelled the shortest?
+## Chapter 5.4.1 Exercises
+### Question 1: Brainstorm as many ways as possible to select dep_time, dep_delay, arr_time, and arr_delay from flights.
+### Question 2: What happens if you include the name of a variable multiple times in a select() call?
+### Question 3: What does the any_of() function do? Why might it be helpful in conjunction with this vector?
+### Question 4: Does the result of running the following code surprise you? How do the select helpers deal with case by default? How can you change that default?
+## 5.5.2 Exercises
+### Question 1: Currently dep_time and sched_dep_time are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
+### Question 2: Compare air_time with arr_time - dep_time. What do you expect to see? What do you see? What do you need to do to fix it?
+
+<!--chapter:end:chapter-4-5.Rmd-->
+

@@ -1,19 +1,11 @@
----
-title: "Chapter 3 Exercises"
-author: "Maddie Lombardo"
-date: "1/18/2022"
-output: 
-    html_document:
-      toc: true
-      toc_float: true
-knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path(dirname(inputFile), 'docs/index.html')) })
----
 
-```{r setup, include=FALSE}
+# Chapter 3
+
+
+```{r setup4234, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
-# Chapter 3
 
 ## Chapter 3.2.4 Exercises
 
