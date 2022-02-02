@@ -279,11 +279,10 @@ flights %>%
 
 # A tibble: 3 × 3
 ```
-#can flights be both? how do you parse out only 50% of the time?
 
 A flight is always 10 minutes late.
 
-```{r}
+```{r 5.6.7 Question 1.2}
 
 flights %>% 
   mutate(is_late_10 = arr_delay == 10) %>% 
@@ -297,7 +296,7 @@ flights %>%
 
 A flight is 30 minutes early 50% of the time, and 30 minutes late 50% of the time.
 
-```{r}
+```{r 5.6.7 Question 1.3}
 
 early <- flights %>% 
   mutate(is_late = case_when(arr_delay > 30 ~ "late",
@@ -346,9 +345,7 @@ flights %>%
 
 99% of the time a flight is on time. 1% of the time it’s 2 hours late.
 
-#i suppose my main question is how do you parse out the probabilities (this was the only hard part of statistics) and then type code to take each into consideration?
-
-```{r}
+```{r 5.6.7 Question 1.4}
 late_bois <- flights %>% 
   mutate(is_late = case_when(arr_delay == 0 ~ "on-time",
                              arr_delay >= 120 ~ "late_af",
@@ -388,23 +385,46 @@ not_cancelled <- flights %>%
 
 not_cancelled %>%  count(dest)
 
-my_not_cancelled <- not_cancelled %>% 
-  n <- #i want to add up all flights for each destination
-  select(flights, "dest", "n")
+not_cancelled %>% group_by(dest) %>% 
+  summarize(count = n())
 
 not_cancelled %>% count(tailnum, wt = distance)
-#what is the frequency weight (wt)? does it add up all the distances?
+
+not_cancelled %>% group_by(tailnum) %>% 
+  summarize(count = sum(distance))
 ```
 
 ### Question 3: Our definition of cancelled flights (is.na(dep_delay) | is.na(arr_delay)) is slightly suboptimal. Why? Which is the most important column?
 
-Could you elicit the same effect with is.na(arr_time)?
+```{r 5.6.7 Question 3}
+cancelled_flights <- flights %>% 
+  filter(is.na(dep_delay) | is.na(arr_delay))
+
+my_cancelled_flights <- flights %>% 
+  filter(is.na(arr_time))
+
+# Could you also use filter(is.na(air_time)) ?
+```
+
 
 ### Question 4: Look at the number of cancelled flights per day. Is there a pattern? Is the proportion of cancelled flights related to the average delay?
 
+```{r 5.6.7 Question 4}
+flights %>% 
+  group_by(month, day) %>% 
+  summarize(cancelled = sum(is.na(arr_time), na.rm = TRUE)/n(),
+            ave_delay = mean(arr_delay, na.rm = TRUE),
+             n = n()) %>% 
+  ggplot(mapping = aes(x = ave_delay , y = cancelled)) +
+  geom_point() +
+  geom_smooth(method = "lm")+
+  ggpubr::stat_cor()
+  
+```
+Yes, there is a pattern.
+
 ### Question 5: Which carrier has the worst delays? Challenge: can you disentagle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about flights %>% group_by(carrier, dest) %>% summarise(n()))
 
-I feel confused in figuring out where I need to start with problems like this.
 
 ### Question 6: What does the sort argument to count() do. When might you use it?
 
