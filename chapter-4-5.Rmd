@@ -210,7 +210,7 @@ The air_time's are smaller than the (arr_time-dep_time)'s. This is because the a
 ### Question 3: Compare dep_time, sched_dep_time, and dep_delay. How would you expect those three numbers to be related?
 
 ```{r 5.5.2 Question 3}
-flights <- nycflights13::flights
+flights <- nycflights13::flights 
 
 head(flights$dep_time)
 head(flights$sched_dep_time)
@@ -255,22 +255,130 @@ tanpi(x)
 
 ### Question 1: Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios:
 
-A flight is 15 minutes early 50% of the time, and 15 minutes late 50% of the time
+A flight is 15 minutes early 50% of the time, OR 15 minutes late 50% of the time
 
 ```{r 5.6.7 question 1.1}
-average_delay_15 <- flights %>% 
-  summarise(mean = mean(arr_delay))
+flights %>% 
+  mutate(is_late = case_when(arr_delay > 15 ~ "late",
+                             arr_delay < -15 ~ "early",
+                             TRUE ~ "not_important")) %>% 
+  group_by(flight,is_late) %>% 
+  summarize(count = n()) %>% 
+  mutate(freq = count / sum(count)) %>% 
+  filter(freq > 0.5) %>% 
+  filter(is_late != "not_important")
 
+flights %>% 
+  group_by(flight) %>% 
+  # filter(!is.na(arr_delay)) %>%  ##Keeping this in would exclude the possibility of canceled
+  summarise(early.15 = sum(arr_delay <= -15, na.rm = TRUE)/n(),
+            late.15 = sum(arr_delay >= 15, na.rm = TRUE)/n(),
+            count = n()) %>% 
+  ungroup() %>% 
+  filter(early.15 == .5, late.15 == .5)
+
+# A tibble: 3 × 3
 ```
 #can flights be both? how do you parse out only 50% of the time?
 
 A flight is always 10 minutes late.
 
+```{r}
+
+flights %>% 
+  mutate(is_late_10 = arr_delay == 10) %>% 
+  group_by(flight,is_late_10) %>% 
+  summarize(count = n()) %>% 
+  mutate(freq = count / sum(count)) %>% 
+  filter(is_late_10 == TRUE) %>% 
+  filter(freq == 1)
+
+```
+
 A flight is 30 minutes early 50% of the time, and 30 minutes late 50% of the time.
+
+```{r}
+
+early <- flights %>% 
+  mutate(is_late = case_when(arr_delay > 30 ~ "late",
+                             arr_delay < -30 ~ "early",
+                             TRUE ~ "not_important")) %>% 
+  group_by(flight,is_late) %>% 
+  summarize(count = n()) %>% 
+  mutate(freq = count / sum(count)) %>% 
+  filter(is_late != "not_important") %>% 
+  filter(is_late == "early" & freq == 0.5) %>% 
+  pull(flight)
+
+late <- flights %>% 
+  mutate(is_late = case_when(arr_delay > 30 ~ "late",
+                             arr_delay < -30 ~ "early",
+                             TRUE ~ "not_important")) %>% 
+  group_by(flight,is_late) %>% 
+  summarize(count = n()) %>% 
+  mutate(freq = count / sum(count)) %>% 
+  filter(is_late != "not_important") %>% 
+  filter(is_late == "late" & freq == 0.5) %>% 
+  pull(flight)
+
+intersect(late,early)
+
+flights %>% 
+  mutate(is_late = case_when(arr_delay > 30 ~ "late",
+                             arr_delay < -30 ~ "early",
+                             TRUE ~ "not_important")) %>% 
+  group_by(flight,is_late) %>% 
+  summarize(count = n()) %>% 
+  mutate(freq = count / sum(count)) %>% 
+  filter(flight %in% intersect(late,early))
+
+
+flights %>% 
+  group_by(flight) %>% 
+  # filter(!is.na(arr_delay)) %>%  ##Keeping this in would exclude the possibility of canceled
+  summarise(early_30 = sum(arr_delay <= -30, na.rm = TRUE)/n(),
+            late_30 = sum(arr_delay >= 30, na.rm = TRUE)/n(),
+            count = n()) %>% 
+  ungroup() %>% 
+  filter(early_30 == .5, late_30 == .5)
+
+```
 
 99% of the time a flight is on time. 1% of the time it’s 2 hours late.
 
 #i suppose my main question is how do you parse out the probabilities (this was the only hard part of statistics) and then type code to take each into consideration?
+
+```{r}
+late_bois <- flights %>% 
+  mutate(is_late = case_when(arr_delay == 0 ~ "on-time",
+                             arr_delay >= 120 ~ "late_af",
+                             TRUE ~ "not_important")) %>% 
+  group_by(flight,is_late) %>% 
+  summarize(count = n()) %>% 
+  mutate(freq = count / sum(count)) %>% 
+  filter(is_late == "late_af" & freq == 0.01)
+
+on_time_bois <- flights %>% 
+  mutate(is_late = case_when(arr_delay == 0 ~ "on-time",
+                             arr_delay >= 120 ~ "late_af",
+                             TRUE ~ "not_important")) %>% 
+  group_by(flight,is_late) %>% 
+  summarize(count = n()) %>% 
+  mutate(freq = count / sum(count)) %>% 
+  filter(is_late == "on-time" & freq == 0.99)
+
+intersect(late_bois,on_time_bois)
+
+flights %>% 
+  group_by(flight) %>% 
+  # filter(!is.na(arr_delay)) %>%  ##Keeping this in would exclude the possibility of canceled
+  summarise(ontime = sum(arr_delay <= 0, na.rm = TRUE)/n(),
+            late.120 = sum(arr_delay >= 120, na.rm = TRUE)/n(),
+            n = n()) %>%
+  ungroup() %>% 
+  filter(ontime == .99, late.120 == .01)
+```
+
 
 ### Question 2: Come up with another approach that will give you the same output as not_cancelled %>% count(dest) and not_cancelled %>% count(tailnum, wt = distance) (without using count())
 
@@ -305,6 +413,22 @@ I feel confused in figuring out where I need to start with problems like this.
 ### Question 1: Refer back to the lists of useful mutate and filtering functions. Describe how each operation changes when you combine it with grouping.
 
 ### Question 2: Which plane (tailnum) has the worst on-time record?
+
+```{r}
+flights %>% 
+  filter(!is.na(tailnum)) %>% 
+  group_by(carrier, tailnum) %>% 
+  # filter(!is.na(arr_delay)) %>%  ##Keeping this in would exclude the possibility of canceled
+  summarise(ontime = sum(arr_delay <= 0, na.rm = TRUE)/n(),
+            avg_delay = mean(arr_delay, na.rm = TRUE),
+            n = n()) %>%
+  ungroup() %>% 
+  filter(n > 5) %>% 
+  slice_min(ontime) %>% 
+  arrange(-avg_delay)
+  
+```
+
 
 ### Question 3: What time of day should you fly if you want to avoid delays as much as possible?
 
