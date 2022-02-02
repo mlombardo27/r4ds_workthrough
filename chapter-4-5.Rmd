@@ -205,4 +205,115 @@ airtime2 <- flights$arr_time - flights$dep_time
 head(airtime2)
 ```
 
-The air_time's are smaller than the (arr_time-dep_time)'s. This is because the arr_time and dep_time are written not in the minutes since midnight but rather just the hourminutes of time (i.e. 315 = 3:15) together. air_time is the total amount of time spent in the air in minutes. Therefore, to fix this, you should use calculate the minutes
+The air_time's are smaller than the (arr_time-dep_time)'s. This is because the arr_time and dep_time are written not in the minutes since midnight but rather just the hourminutes of time (i.e. 315 = 3:15) together. air_time is the total amount of time spent in the air in minutes. Therefore, to fix this, you should use calculate the minutes since midnight and use those numbers to calculate airtime
+
+### Question 3: Compare dep_time, sched_dep_time, and dep_delay. How would you expect those three numbers to be related?
+
+```{r 5.5.2 Question 3}
+flights <- nycflights13::flights
+
+head(flights$dep_time)
+head(flights$sched_dep_time)
+head(flights$dep_delay)
+```
+
+I expect that the dep_time - sched_dep_time == dep_delay. That is the case, if you look at the first 6 points for all 3.
+
+### Question 4: Find the 10 most delayed flights using a ranking function. How do you want to handle ties? Carefully read the documentation for min_rank().
+
+```{r 5.5.2 Question 4}
+filter(flights, min_rank(desc(dep_delay))<=10)
+```
+
+There were no ties, but min_rank would have assigned them the same ranking. You could adjust this by using the ties.method = "x"
+
+### Question 5: What does 1:3 + 1:10 return? Why?
+
+```{r 5.5.2 Question 5}
+1:3 + 1:10
+```
+
+It returns the arrays added together; so, it adds 1,2,3 to 1,2,3,4,5,6,7,8,9,10 in the positions they exist, so at position 1, it adds 1+1 as 2.
+
+### Question 6: What trigonometric functions does R provide?
+
+R has: 
+cos(x)
+sin(x)
+tan(x)
+
+acos(x)
+asin(x)
+atan(x)
+atan2(y, x)
+
+cospi(x)
+sinpi(x)
+tanpi(x)
+
+## Chapter 5.6.7 Exercises
+
+### Question 1: Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios:
+
+A flight is 15 minutes early 50% of the time, and 15 minutes late 50% of the time
+
+```{r 5.6.7 question 1.1}
+average_delay_15 <- flights %>% 
+  summarise(mean = mean(arr_delay))
+
+```
+#can flights be both? how do you parse out only 50% of the time?
+
+A flight is always 10 minutes late.
+
+A flight is 30 minutes early 50% of the time, and 30 minutes late 50% of the time.
+
+99% of the time a flight is on time. 1% of the time it’s 2 hours late.
+
+#i suppose my main question is how do you parse out the probabilities (this was the only hard part of statistics) and then type code to take each into consideration?
+
+### Question 2: Come up with another approach that will give you the same output as not_cancelled %>% count(dest) and not_cancelled %>% count(tailnum, wt = distance) (without using count())
+
+```{r 5.6.7 Question 2}
+not_cancelled <- flights %>% 
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+
+not_cancelled %>%  count(dest)
+
+my_not_cancelled <- not_cancelled %>% 
+  n <- #i want to add up all flights for each destination
+  select(flights, "dest", "n")
+
+not_cancelled %>% count(tailnum, wt = distance)
+#what is the frequency weight (wt)? does it add up all the distances?
+```
+
+### Question 3: Our definition of cancelled flights (is.na(dep_delay) | is.na(arr_delay)) is slightly suboptimal. Why? Which is the most important column?
+
+Could you elicit the same effect with is.na(arr_time)?
+
+### Question 4: Look at the number of cancelled flights per day. Is there a pattern? Is the proportion of cancelled flights related to the average delay?
+
+### Question 5: Which carrier has the worst delays? Challenge: can you disentagle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about flights %>% group_by(carrier, dest) %>% summarise(n()))
+
+I feel confused in figuring out where I need to start with problems like this.
+
+### Question 6: What does the sort argument to count() do. When might you use it?
+
+## Chapter 5.7.1 Exercises 
+
+### Question 1: Refer back to the lists of useful mutate and filtering functions. Describe how each operation changes when you combine it with grouping.
+
+### Question 2: Which plane (tailnum) has the worst on-time record?
+
+### Question 3: What time of day should you fly if you want to avoid delays as much as possible?
+
+### Question 4: For each destination, compute the total minutes of delay. For each flight, compute the proportion of the total delay for its destination.
+
+### Question 5: Delays are typically temporally correlated: even once the problem that caused the initial delay has been resolved, later flights are delayed to allow earlier flights to leave. Using lag(), explore how the delay of a flight is related to the delay of the immediately preceding flight.
+
+### Question 6: Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time of a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?
+
+### Question 7: Find all destinations that are flown by at least two carriers. Use that information to rank the carriers.
+
+### Question 8: For each plane, count the number of flights before the first delay of greater than 1 hour.
