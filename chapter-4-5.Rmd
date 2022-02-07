@@ -425,16 +425,25 @@ Yes, there is a pattern.
 
 ### Question 5: Which carrier has the worst delays? Challenge: can you disentagle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about flights %>% group_by(carrier, dest) %>% summarise(n()))
 
+```{r 5.6.7 Question 5}
+flights %>% group_by(carrier, dest) %>% 
+  summarise(ave_delay = mean(arr_delay, na.rm = TRUE),
+             n = n()) %>% 
+  filter(ave_delay > 30) %>% 
+  arrange(-ave_delay) %>% 
+  arrange(-n)
+```
+This shows that the carrier, EV, has the top 5 most flights (n) with delays on average of 30-42 minutes to all different destinations.
 
 ### Question 6: What does the sort argument to count() do. When might you use it?
 
+The sort argument will show the largest groups at the top of the dataframe. I could have used it in the above code chunk instead of arrange(-ave_delay)
+
 ## Chapter 5.7.1 Exercises 
 
-### Question 1: Refer back to the lists of useful mutate and filtering functions. Describe how each operation changes when you combine it with grouping.
+### Question 1: Which plane (tailnum) has the worst on-time record?
 
-### Question 2: Which plane (tailnum) has the worst on-time record?
-
-```{r}
+```{r Chapter 5.7.1 Question 1}
 flights %>% 
   filter(!is.na(tailnum)) %>% 
   group_by(carrier, tailnum) %>% 
@@ -449,15 +458,74 @@ flights %>%
   
 ```
 
+### Question 2: What time of day should you fly if you want to avoid delays as much as possible?
 
-### Question 3: What time of day should you fly if you want to avoid delays as much as possible?
+```{r Chapter 5.7.1 Question 2}
+low_delay_time <- flights %>% 
+  summarize(dep_time, on_time = sum(arr_delay <= 0, na.rm = TRUE)/n(), ave_delay = mean(arr_delay, na.rm = TRUE)) %>% 
+  group_by(dep_time, ave_delay, on_time) %>% 
+  arrange(-on_time)
+```
+You should travel between 5 and 6am for the shortest average delay for the greatest on time proportion.
 
-### Question 4: For each destination, compute the total minutes of delay. For each flight, compute the proportion of the total delay for its destination.
+### Question 3: For each destination, compute the total minutes of delay.
 
-### Question 5: Delays are typically temporally correlated: even once the problem that caused the initial delay has been resolved, later flights are delayed to allow earlier flights to leave. Using lag(), explore how the delay of a flight is related to the delay of the immediately preceding flight.
+```{r Chapter 5.7.1 Question 3 pt 1}
+flights %>% 
+  group_by(dest, dep_delay, arr_delay) %>%  
+  summarize(dest, tot_delay = sum(dep_delay + arr_delay)/n()) %>% 
+  arrange(-tot_delay)
+```
 
-### Question 6: Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time of a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?
+For each flight, compute the proportion of the total delay for its destination.
 
-### Question 7: Find all destinations that are flown by at least two carriers. Use that information to rank the carriers.
+```{r Chapter 5.7.1 Question 3 pt 2}
+flights %>% 
+  group_by(flight, arr_delay, dep_delay) %>% 
+  summarize(flight, tot_delay = (sum(arr_delay + dep_delay)/n())) %>% 
+  filter(!is.na(tot_delay)) %>% 
+  arrange(-tot_delay)
+```
 
-### Question 8: For each plane, count the number of flights before the first delay of greater than 1 hour.
+### Question 4: Delays are typically temporally correlated: even once the problem that caused the initial delay has been resolved, later flights are delayed to allow earlier flights to leave. Using lag(), explore how the delay of a flight is related to the delay of the immediately preceding flight.
+
+```{r 5.7.1 Question 4, error = TRUE}
+flights %>% 
+  lag(order_by = arr_delay)
+```
+Not sure why this isn't working. Error saying object 'arr_delay' is not found
+
+### Question 5: Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time of a flight relative to the shortest flight to that destination. 
+
+```{r Chapter 5.7.1 Question 5.1}
+flights %>% 
+  group_by(air_time, distance) %>% 
+  summarize(speed = distance/air_time) %>% 
+  arrange(-speed)
+```
+Which flights were most delayed in the air?
+
+```{r Chapter 5.7.1 Question 5.2}
+flights %>% 
+  group_by(air_time, distance) %>% 
+  summarize(speed = distance/air_time) %>% 
+  arrange(speed)
+```
+
+### Question 6: Find all destinations that are flown by at least two carriers. Use that information to rank the carriers.
+
+```{r Chapter 5.7.1 Question 6}
+flights %>% 
+  group_by(carrier, dest) %>% 
+  summarize(dest, n = n()) %>% 
+  filter(n >= 2) %>% 
+  arrange(-n)
+```
+
+### Question 7: For each plane, count the number of flights before the first delay of greater than 1 hour.
+
+```{r Chapter 5.7.1 Question 7}
+flights %>% 
+  group_by(tailnum, dep_delay)
+```
+For this, how would I have it scan just until the first delay? Would i also need to group_by day, month, year? I know I will have to get the counts through a summarize(n = n()) but don't know how I would do the other portion of the summarize.
