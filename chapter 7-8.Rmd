@@ -1,0 +1,88 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(nycflights13)
+library(ggbeeswarm)
+library(lvplot)
+library(ggstance)
+```
+
+# Chapter 7
+
+## Chapter 7.3.4 Exercises
+
+### Question 1:Explore the distribution of each of the x, y, and z variables in diamonds. What do you learn? Think about a diamond and how you might decide which dimension is the length, width, and depth.
+```{r 7.3.4 Question 1}
+plotx <- ggplot(diamonds) +
+  geom_histogram(mapping = aes(x = x), binwidth = 0.01)
+#x axis values between 3-9
+
+ploty <- ggplot(diamonds) +
+  geom_histogram(mapping = aes(x = y), binwidth = 0.01, x)
+#x axis values between 3-8
+
+plotz <- ggplot(diamonds) +
+  geom_histogram(mapping = aes(x = z), binwidth = 0.01)
+#x axis values between 5-11
+```
+
+All histograms have right-skewed distributions and are multi-modal.
+I would think x is length, y is width, and z is depth based on the graphs and looking at the means.
+There are some clear outliers in the dataset, perhaps entering error?
+
+
+### Question 2: Explore the distribution of price. Do you discover anything unusual or surprising? 
+
+```{r chapter 7.3.4 question2}
+diamonds %>% 
+  ggplot(mapping = aes(x = price, y = carat, fill = cut, color = cut))+
+  geom_point()
+```
+I would have expected that the carat was the most important factor in the price of the diamond. While you do see a positive correlation, it isn't as stark as I would have thought. I am also surprised by the cut being less of a factor in the price.
+
+### Question 3: How many diamonds are 0.99 carat? How many are 1 carat? What do you think is the cause of the difference?
+
+```{r chapter 7.3.4 question 4}
+count99 <- diamonds %>% 
+  filter(carat == 0.99) %>% 
+  summarize(count = n())
+
+count1 <- diamonds %>% 
+  filter(carat == 1) %>% 
+  summarize(count = n())
+```
+
+There are 23 diamonds that are 0.99 carat and 1558 diamonds that are 1 carat. I would guess the difference in number is largely due to the number of people who would round up for ease when appraising the diamonds.
+
+### Question 4: Compare and contrast coord_cartesian() vs xlim() or ylim() when zooming in on a histogram. What happens if you leave binwidth unset? What happens if you try and zoom so only half a bar shows?
+
+```{r chapter 7.3.4 question4}
+diamonds %>% 
+  ggplot(mapping = aes(x = carat))+
+  geom_histogram()+
+  coord_cartesian(xlim = c(0, 3), expand = FALSE)
+
+diamonds %>% 
+  ggplot(mapping = aes(x = carat))+
+  geom_histogram()+
+  xlim(0,3)
+```
+
+coord_cartesian() allows you to set the min and max of the x and y limits, effectively allowing you to set the area that is zoomed in on. 
+
+xlim() does not adjust the bin widths with the changes in zooming that you set.
+
+## Chapter 7.4.1 Exercises
+
+### Question 1: What happens to missing values in a histogram? What happens to missing values in a bar chart? Why is there a difference?
+
+The missing values in a histogram are removed with a warning.In geom_bar(), the missing values are considered their own category.
+
+### Question 2: What does na.rm = TRUE do in mean() and sum()?
+
+na.rm = TRUE in mean means that the NA values will be stripped before computation. In sum(), the na.rm = TRUE would remove the missing values.
+
+# Chapter 8
+
+No exercises here.
