@@ -1,0 +1,215 @@
+---
+title: "Chapter 9, 10, 11"
+author: "Maddie Lombardo"
+date: "3/1/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+```
+
+# Chapter 9
+
+# Chapter 10
+
+## Chapter 10.5 Exercises
+
+### Question 1: How can you tell if an object is a tibble? (Hint: try printing mtcars, which is a regular data frame).
+
+```{r chapter 10.5 question 1}
+print(mtcars)
+
+as_tibble(mtcars) %>% 
+  print()
+```
+
+With a tibble, the type of data in each column is expressed (i.e dbl, chr, etc). This information is not shown in a dataframe
+
+### Question 2: Compare and contrast the following operations on a data.frame and equivalent tibble. What is different? Why might the default data frame behaviours cause you frustration?
+
+```{r 10.5 Question 2}
+df <- data.frame(abc = 1, xyz = "a")
+df$x
+df[, "xyz"]
+df[, c("abc", "xyz")]
+
+tbl <- tibble(abc = 1, xyz = "a")
+tbl$xyz
+tbl[, "xyz"]
+tbl[, c("abc", "xyz")]
+```
+
+The default dataframe behaviors may be annoying because they require much less specificity and therefore could be problematic for larger datasets.
+
+### Question 3: If you have the name of a variable stored in an object, e.g. var <- "mpg", how can you extract the reference variable from a tibble?
+
+```{r 10.5 Question 3}
+df <- tibble(var = "mpg", typ = "car")
+
+df$var
+```
+
+### Question 4.1: Practice referring to non-syntactic names in the following data frame by: Extracting the variable called 1.
+```{r 10.5 question 4.1}
+annoying <- tibble(
+  `1` = 1:10,
+  `2` = `1` * 2 + rnorm(length(`1`))
+)
+
+annoying[[1]]
+```
+
+### Question 4.2: Plotting a scatterplot of 1 vs 2.
+
+```{r 10.5 question 4.2}
+ggplot(data = annoying, mapping = aes(x = `1`, y = `2`)) +
+  geom_point()
+```
+
+### Question 4.3: Creating a new column called 3 which is 2 divided by 1.
+
+```{r 10.5 question 4.3}
+annoying <- annoying %>% 
+  mutate(`3` = `2`/`1`)
+```
+
+### Question 4.4: Renaming the columns to one, two and three.
+
+```{r 10.5 question 4.4}
+annoying <- annoying %>% 
+  rename("one" = `1` , "two" = `2`,"three" = `3`)
+```
+
+### Question 5: What does tibble::enframe() do? When might you use it?
+
+It converts named atomic vectors or lists to one- or two-column data frames with set column names. You may use this when you want to convert data in a way that you could more easily manipulate it.
+
+### Question 6: What option controls how many additional column names are printed at the footer of a tibble?
+
+print.tbl explains the options. There are functions, max_extra_cols,max_footer_lines, that allow you to control how many column names are at the footer.
+
+# Chapter 11
+
+## Chapter 11.2.2 Exercises
+
+### Question 1: What function would you use to read a file where fields were separated with “|”?
+
+use read_delim(file, delim = "|")
+
+### Question 2: Apart from file, skip, and comment, what other arguments do read_csv() and read_tsv() have in common?
+
+col_names, col_types, col_select, na, id, quoted_na, name_repair
+
+### Question 3: What are the most important arguments to read_fwf()?
+
+file, col_positions, na, skip, name_repair
+
+### Question 4: Sometimes strings in a CSV file contain commas. To prevent them from causing problems they need to be surrounded by a quoting character, like " or '. By default, read_csv() assumes that the quoting character will be ". What argument to read_csv() do you need to specify to read the following text into a data frame?
+
+"x,y\n1,'a,b'"
+
+you should use the escape_backslash or escape_double arguments to specify to read the text into a dataframe
+
+### Question 5: Identify what is wrong with each of the following inline CSV files. What happens when you run the code?
+
+```{r 11.2.2 Question 5.1}
+read_csv("a,b\n1,2,3\n4,5,6")
+```
+This only creates 2 column names with 3 variables, so the 2,3 and 5,6 get smooshed together into column b.
+
+
+```{r 11.2.2 question 5.2}
+read_csv("a,b,c\n1,2\n1,2,3,4")
+```
+This one creates 3 columns: a, b, c where row 1 only has 2 values and row two has 4. This caused the data to set NA to c1 and smoosh 3,4 into c2
+
+```{r 11.2.2 Question 5.3}
+read_csv("a,b\n\"1")
+```
+the additional backslash sets no data to the columns a and b so no dataframe gets created
+
+```{r 11.2.2 question 5.4}
+read_csv("a,b\n1,2\na,b")
+```
+because there is no '\nna,b' r gets confused and sets the second row position a to be a instead of NA.
+
+```{r 11.2.2 question 5.5}
+read_csv("a;b\n1;3")
+```
+the semicolons have confused R studio when they should have been colons (:) further, they do not assign as they would in subsetting a tibble and will just print exactly "a:b" and "1:3" not 1-3.
+
+## Chapter 11.3.5 Exercises
+
+### Question 1: What are the most important arguments to locale()?
+
+the most important arguments are setting what the date_format, time_format, and decimal_mark to what you will then be using for the rest of the data
+
+### Question 2: What happens if you try and set decimal_mark and grouping_mark to the same character? What happens to the default value of grouping_mark when you set decimal_mark to “,”? What happens to the default value of decimal_mark when you set the grouping_mark to “.”?
+
+```{r 11.3.5 question 2}
+locale(decimal_mark = ".", grouping_mark = ".")
+```
+You get an error message: Error: `decimal_mark` and `grouping_mark` must be different
+
+### Question 3: I didn’t discuss the date_format and time_format options to locale(). What do they do? 
+
+```{r 11.3.5 question 3}
+locale()
+```
+these functions allow you to set the date and time formats manually using the following settings:
+Year: %Y (4 digit), %y (2 digit)
+Month: %m (2 digit), %b (abbreviated name), %B (full name)
+Day: %d (2 digits), %e (optional leading space)
+Time: %H (0-23 hr), %I (0-12), %p (AM/PM), %M (minutes), %S (integer seconds), %OS (real seconds), %Z (time zone), %z (offset from UTC, ex +0800)
+
+### Question 4: If you live outside the US, create a new locale object that encapsulates the settings for the types of file you read most commonly.
+
+```{r 11.3.5 Question 4}
+locale(grouping_mark = ".", tz = "GMT")
+```
+
+### Question 5: What’s the difference between read_csv() and read_csv2()?
+
+The difference is in the delimiter; read_csv uses a comma, read_csv2 uses a semicolon
+
+### Question 6: What are the most common encodings used in Europe? What are the most common encodings used in Asia? Do some googling to find out.
+
+UTF-8 is standard now, before it was ASCII.
+
+For the European languages, there are separate encodings: Latin script, Cyrillic, Greek, Hebrew, Turkish: 
+usually with separate ISO and Windows encoding standards. There is also Mac OS Roman.
+
+For Asian languages Arabic and Vietnamese have ISO and Windows standards. The other major Asian scripts have their own:
+
+Japanese: JIS X 0208, Shift JIS, ISO-2022-JP
+Chinese: GB 2312, GBK, GB 18030
+Korean: KS X 1001, EUC-KR, ISO-2022-KR
+
+### Question 7: Generate the correct format string to parse each of the following dates and times:
+
+```{r 11.3.5 question 7}
+d1 <- "January 1, 2010"
+parse_date(d1, "%B %d, %Y")
+
+d2 <- "2015-Mar-07"
+parse_date(d2, "%Y-%b-%d")
+
+d3 <- "06-Jun-2017"
+parse_date(d3, "%d-%b-%Y")
+
+d4 <- c("August 19 (2015)", "July 1 (2015)")
+parse_date(d4, "%B %d (%Y)")
+
+d5 <- "12/30/14" # Dec 30, 2014
+parse_date(d5, "%m/%d/%y")
+
+t1 <- "1705"
+parse_time(t1, "%H%M")
+
+t2 <- "11:15:10.12 PM"
+parse_time(t2, "%I:%M:%OS %p")
+```
+
