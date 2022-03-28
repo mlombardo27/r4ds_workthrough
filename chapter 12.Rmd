@@ -1,0 +1,231 @@
+---
+title: "chapter 12"
+author: "Maddie Lombardo"
+date: "3/10/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggplot2)
+```
+
+# Chapter 12
+
+## Chapter 12.2.1 Exercises
+
+### Question 1: Using prose, describe how the variables and observations are organised in each of the sample tables.
+
+```{r 12.2.1 question 1}
+table1
+table2
+table3
+table4a
+table4b
+```
+Each table is a tibble with various columns detailing the same data. Table1 shows the cases per year for each country and the associated population per year.Table2 instead makes a count for the 'type' of numbers (cases vs population). Table3 shows the rate of cases per year by place. Table4a separates the data of cases per country per year. Table4b shows the populations per country per year
+
+### Question 2: Compute the rate for table2, and table4a + table4b. You will need to perform four operations: 
+
+Extract the number of TB cases per country per year.
+```{r 12.2.1 question 2.1}
+table2 <- table2 %>% 
+  mutate(tb_case = case_when(type == 'cases' ~ count,
+                             FALSE ~ NA_integer_))
+cases_table2 <- table2 %>%
+  filter(!is.na(tb_case)) %>% 
+  pull(tb_case)
+
+table4a <- table4a %>% 
+  left_join(table4b, by = 'country', suffix = c(".case",".population"))
+
+cases_table4 <- table4a %>% 
+  pull('1999.case','2000.case')
+```
+
+Extract the matching population per country per year.
+```{r 12.2.1 question 2.2}
+table2_population <- table2 %>% 
+  mutate(tb_population = case_when(type == 'population' ~ count,
+                                   FALSE ~ NA_integer_)) %>%
+  filter(!is.na(tb_population)) %>% 
+  pull(tb_population)
+
+table4a_population <- table4a %>% 
+  pull('1999.population','2000.population')
+```
+
+Divide cases by population, and multiply by 10000.
+```{r 12.2.1 question 2.3}
+rate_table2 = (cases_table2/table2_population) * 10000
+
+rate_table4 = (cases_table4/table4a_population) * 10000
+```
+
+Store back in the appropriate place.
+Which representation is easiest to work with? Which is hardest? Why?
+
+Table2 was easier because all of the information was in one tibble that could be mutated to add the calculations. Table4a+Table4b required additional changes to combine the tibbles and then work with. There was difficulty in maintaining the differences between years with table4a/b
+
+### Question 3: Recreate the plot showing change in cases over time using table2 instead of table1. What do you need to do first?
+
+```{r 12.2.1 question 3}
+ggplot(table2, aes(year, tb_case))+
+  geom_line(aes(group = country), color = 'grey50')+
+  geom_point(aes(color = country))
+```
+
+*I can't figure out why the geom_line doesn't show up here
+
+## Chapter 12.3.3 Exercises
+
+### Question 1: Why are pivot_longer() and pivot_wider() not perfectly symmetrical?
+
+Carefully consider the following example:
+(Hint: look at the variable types and think about column names.)
+
+```{r 12.3.3 question 1}
+stocks <- tibble(
+  year   = c(2015, 2015, 2016, 2016),
+  half  = c(   1,    2,     1,    2),
+  return = c(1.88, 0.59, 0.92, 0.17)
+)
+stocks %>% 
+  pivot_wider(names_from = year, values_from = return) %>% 
+  pivot_longer(`2015`:`2016`, names_to = "year", values_to = "return")
+```
+
+stocks and then stocks when you pivot_wider then pivot_longer are not symmetrical because the column type information gets lost when you convert a dataframe from wide to long. pivot_longer stacks columns and gets rid of the original column data type. pivot_wider creates a column name from values in the column
+
+pivot_longer() has a names_ptypes argument, e.g.  names_ptypes = list(year = double()). What does it do?
+
+It  allows you to manually set the type of data
+
+### Question 2: Why does this code fail?
+
+```{r 12.3.3 question 2, error = TRUE}
+table4a %>% 
+  pivot_longer(c(1999, 2000), names_to = "year", values_to = "cases")
+#> Error: Can't subset columns that don't exist.
+#> ✖ Locations 1999 and 2000 don't exist.
+#> ℹ There are only 3 columns.
+
+table4a %>% 
+  pivot_longer(c('1999', '2000'), names_to = "year", values_to = "cases")
+
+```
+You have to put the years in quotations to make this work
+
+### Question 3: What would happen if you widen this table? Why? How could you add a new column to uniquely identify each value?
+
+```{r 12.3.3 question 3}
+people <- tribble(
+  ~name,             ~names,  ~values,
+  #-----------------|--------|------
+  "Phillip Woods",   "age",       45,
+  "Phillip Woods",   "height",   186,
+  "Phillip Woods",   "age",       50,
+  "Jessica Cordero", "age",       37,
+  "Jessica Cordero", "height",   156
+)
+
+people %>% 
+  pivot_wider(names_from = 'names', values_from = 'values')
+```
+You get the following warning message:
+
+Values from `values` are not uniquely identified; output will contain list-cols.
+* Use `values_fn = list` to suppress this warning.
+* Use `values_fn = {summary_fun}` to summarise duplicates.
+* Use the following dplyr code to identify duplicates.
+  {data} %>%
+    dplyr::group_by(name, names) %>%
+    dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+    dplyr::filter(n > 1L) 
+
+This is because Phillip Woods has 2 different 'ages' listed.You can use the names_repair argument to 'check_unique' or 'minimal' to change this.
+
+### Question 4: Tidy the simple tibble below. Do you need to make it wider or longer? What are the variables?
+
+```{r 12.3.3 question 4}
+preg <- tribble(
+  ~pregnant, ~male, ~female,
+  "yes",     NA,    10,
+  "no",      20,    12
+)
+
+preg %>% 
+  pivot_longer(c(male,female), names_to = 'sex', values_to = 'count')
+```
+the variables here are:
+pregnant,gender, and count
+
+## Chapter 12.4.3 Exercises
+
+### Question 1: What do the extra and fill arguments do in separate()? Experiment with the various options for the following two toy datasets.
+
+There is an extra variable here. separate() gives 3 options on what you can do with this: warn, drop, merge
+```{r 12.4.3 question 1.1}
+tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>% 
+  separate(x, c("one", "two", "three"))
+           
+tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>% 
+  separate(x, c("one", "two", "three"), extra = 'merge')
+#merges the extra variable separated by a comma
+
+tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>% 
+  separate(x, c("one", "two", "three"), extra = 'drop')
+#gets rid of the extra variable, only lists first one
+```
+
+There is a missing variable here. separate() gives 3 options on what you can do with this: warn, right, left
+```{r 12.4.3 question 1.2}
+tibble(x = c("a,b,c", "d,e", "f,g,i")) %>% 
+  separate(x, c("one", "two", "three"))
+
+tibble(x = c("a,b,c", "d,e", "f,g,i")) %>% 
+  separate(x, c("one", "two", "three"), fill = 'right')
+
+tibble(x = c("a,b,c", "d,e", "f,g,i")) %>% 
+  separate(x, c("one", "two", "three"), fill = 'left')
+```
+the fill will shift where the NA value will exist, from the right or the left.
+
+### Question 2: Both unite() and separate() have a remove argument. What does it do? Why would you set it to FALSE?
+
+the remove argument will get rid of the input column from the output dataframe
+
+### Question 3: Compare and contrast separate() and extract(). Why are there three variations of separation (by position, by separator, and with groups), but only one unite?
+
+## Chapter 12.5.1 Exercises
+
+### Question 1: Compare and contrast the fill arguments to pivot_wider() and complete().
+
+### Question 2: What does the direction argument to fill() do?
+
+## Chapter 12.6.1 Exercises
+
+### Question 1: In this case study I set values_drop_na = TRUE just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an NA and zero?
+
+If there are missing values in the table for some variables you would lose the whole entry, which could make your analysis not representative of the actual data if removed. A zero is different from NA because a 0 is the data and an NA would be a value that does not exist for the data
+
+### Question 2: What happens if you neglect the mutate() step? (mutate(names_from = stringr::str_replace(key, "newrel", "new_rel")))
+
+```{r 12.6.1 question 2}
+who %>%
+  pivot_longer(
+    cols = new_sp_m014:newrel_f65, 
+    names_to = "key", 
+    values_to = "cases", 
+    values_drop_na = TRUE) %>%
+  separate(key, c("new", "var", "sexage")) %>% 
+  select(-new, -iso2, -iso3) %>% 
+  separate(sexage, c("sex", "age"), sep = 1)
+```
+
+When you remove the mutate call, you get a warning message where it fills missing values with NA
+
+### Question 3: I claimed that iso2 and iso3 were redundant with country. Confirm this claim.
+
+### Question 4: For each country, year, and sex compute the total number of cases of TB. Make an informative visualisation of the data.
