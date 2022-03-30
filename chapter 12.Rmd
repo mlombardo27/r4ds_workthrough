@@ -228,4 +228,39 @@ When you remove the mutate call, you get a warning message where it fills missin
 
 ### Question 3: I claimed that iso2 and iso3 were redundant with country. Confirm this claim.
 
+```{r 12.6.1 question 3}
+
+who %>% 
+  select(iso2, iso3) %>% 
+  unique()
+```
+iso2 and iso3 are the same information but iso2 is the 2 letter country code wherease iso3 is the 3 letter country code
+
 ### Question 4: For each country, year, and sex compute the total number of cases of TB. Make an informative visualisation of the data.
+
+```{r 12.6.1 question 4}
+who5 <- who %>%
+  pivot_longer(
+    cols = new_sp_m014:newrel_f65, 
+    names_to = "key", 
+    values_to = "cases", 
+    values_drop_na = TRUE
+  ) %>% 
+  mutate(
+    key = stringr::str_replace(key, "newrel", "new_rel")
+  ) %>%
+  separate(key, c("new", "var", "sexage")) %>% 
+  select(-new, -iso2, -iso3) %>% 
+  separate(sexage, c("sex", "age"), sep = 1)
+#the above code was provided by the book
+
+#the code below answers the question
+who5 %>%
+  group_by(country, year, sex) %>%
+  filter(year > 1995) %>%
+  summarise(cases = sum(cases)) %>%
+  unite(country_sex, country, sex, remove = FALSE) %>%
+  ggplot(aes(x = year, y = cases, group = country_sex, colour = sex)) +
+  geom_line()
+```
+
