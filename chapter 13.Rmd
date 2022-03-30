@@ -1,0 +1,41 @@
+---
+title: "chapter 13"
+author: "Maddie Lombardo"
+date: "3/30/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(nycflights13)
+```
+
+# Chapter 13
+
+## Chapter 13.2.1 Exercises
+
+### Question 1: Imagine you wanted to draw (approximately) the route each plane flies from its origin to its destination. What variables would you need? What tables would you need to combine?
+
+You would need:
+-the unique identifier of each plane and the airport,which is given by the tailnumber and faa code, respectively
+-the airport location, given by the latitude and longitude
+-the origin and destination of each flight
+
+This means you would need to combine the information from the airports, planes, and flights tables to make this visualization
+
+### Question 2: I forgot to draw the relationship between weather and airports. What is the relationship and how should it appear in the diagram?
+
+```{r 13.2.1 question 2}
+weather
+airports
+```
+weather gives the weather at each NYC airport for each hour, while airports gives the time zone for each airport, which could be used to relate the two. You would have to connect them with their common variable in flights, origin
+
+### Question 3: weather only contains information for the origin (NYC) airports. If it contained weather records for all airports in the USA, what additional relation would it define with flights?
+
+If weather contained records for all airports in the USA, it would also relate to the daylight savings time zone (DST), as A = standard US DST
+
+### Question 4: We know that some days of the year are “special”, and fewer people than usual fly on them. How might you represent that data as a data frame? What would be the primary keys of that table? How would it connect to the existing tables?
+
+You could look at the flights (day,month,tailnum) and planes (tailnum, seats) tables to identify if the number of seats on the planes flying on the holidays/'special' days are smaller than non-holiday flights
