@@ -1,0 +1,105 @@
+---
+title: "chapter_14"
+author: "Maddie Lombardo"
+date: "4/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Chapter 14 Exercises
+
+## chapter 14.2.5 exercises
+
+### Question 1: In code that doesn’t use stringr, you’ll often see paste() and paste0(). What’s the difference between the two functions? What stringr function are they equivalent to? How do the functions differ in their handling of NA?
+
+The difference between these functions is that paste() will automatically separate characters separated by a space, whereas paste0() does not.
+
+The stringr function, str_c, is equivalent to paste0() because it doesn't inherently separate the characters that have a space between them.
+
+both paste() and paste0() coerce an NA character to "NA", the only difference is whether there would be a space between the characters. str_c will keep the NA as a NA vector.
+
+### Question 2: In your own words, describe the difference between the sep and collapse arguments to str_c().
+
+The sep argument will be adding something such as a ' ' or ',' in between the vectors whereas collapse allows you to combine the input vectors into a single string.
+
+### Question 3: Use str_length() and str_sub() to extract the middle character from a string. What will you do if the string has an even number of characters?
+
+```{r 14.2.5 question 3}
+test <- 'test'
+
+test %>% 
+  str_sub(start = (str_length(test)/2), end = str_length(test)/2)
+```
+
+### Question 4: What does str_wrap() do? When might you want to use it?
+
+str_wrap() creates a nicely formatted paragraph from your string objects, where you set the width and indent and it will format the character object to fit your constraints. You may want to do this if you have a large amount of text that you're trying to format to fit a screen size.
+
+### Question 5: What does str_trim() do? What’s the opposite of str_trim()?
+
+str_trim() removes the white space from a start or end of a string, so if there is extra spaces at the beginning or end of a string, it'll remove them.
+
+The opposite of str_trim() is str_pad() which adds whitespace to a string.
+
+### Question 6: Write a function that turns (e.g.) a vector c("a", "b", "c") into the string a, b, and c. Think carefully about what it should do if given a vector of length 0, 1, or 2.
+
+```{r 14.2.5 question 6}
+test6 <- c('a','b','c')
+
+test6 %>% 
+  str_c(collapse = ', ')
+
+vector_to_string <- function(string_vector) { 
+  separated <- str_c(string_vector, collapse = ', ') 
+  return(separated)
+}
+
+test0 <- c()
+vector_to_string(test0)
+
+test1 <- c('1')
+vector_to_string(test1)
+```
+
+This function will combine strings if there are multiple and separate them by a comma and a space but will return just a space if there are no characters to combine. It will also return just the 1 vector if there is only 1 in the object.
+
+## Chapter 14.5.1 exercises
+
+### Question 1: How would you find all strings containing \ with regex() vs. with fixed()?
+
+```{r 14.5.1 question 1}
+str_subset(c("a\\b", "ab"), "\\\\")
+
+str_subset(c("a\\b", "ab"), fixed("\\"))
+```
+
+### Question 2: What are the five most common words in sentences?
+
+```{r 14.5.1 question 2}
+library(dplyr)
+str_extract_all(sentences, boundary("word")) %>%
+  unlist() %>%
+  str_to_lower() %>%
+  tibble() %>%
+  set_names("word") %>%
+  group_by(word) %>%
+  count(sort = TRUE) %>%
+  head(5)
+```
+
+## Chapter 14.7.1 exercises
+
+### Question 1: Find the stringi functions that:
+
+Count the number of words: stri_count_words()
+Find duplicated strings: stri_duplicated()
+Generate random text: stri_rand_(), stri_rand_lipsum(), stri_rand_strings(), stri_rand_shuffle()
+
+### Question 2: How do you control the language that stri_sort() uses for sorting?
+
+You use the opts_collator argument.
+
