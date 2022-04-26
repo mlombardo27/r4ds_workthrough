@@ -9,6 +9,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(nycflights13)
+library(Lahman)
+library(babynames)
+library(nasaweather)
+library(fueleconomy)
+library(ggplot2)
 ```
 
 # Chapter 13
@@ -44,19 +49,209 @@ You could look at the flights (day,month,tailnum) and planes (tailnum, seats) ta
 
 ### Question 1:Add a surrogate key to flights.
 
-```{r question 13.3.1}
-
+```{r 13.3.1 question 1}
+flights %>% 
+  mutate(surrogate_key = row_number())
 ```
-
 
 ### Question 2: Identify the keys in the following datasets
 
-Lahman::Batting,
+```{r 13.3.1 question 2}
+Lahman::Batting
+#key: playerID
+
 babynames::babynames
+#name
+
 nasaweather::atmos
+#year, month
+
 fueleconomy::vehicles
+#id
+
 ggplot2::diamonds
-(You might need to install some packages and read some documentation.)
+#you'd need to create a surrogate key or use multiple variables for this dataset
+```
 
-### Question 3: Draw a diagram illustrating the connections between the Batting, People, and Salaries tables in the Lahman package. Draw another diagram that shows the relationship between People, Managers, AwardsManagers. How would you characterise the relationship between the Batting, Pitching, and Fielding tables?
+## Chapter 13.4.6 Exercises
 
+### Question 1: Compute the average delay by destination, then join on the airports data frame so you can show the spatial distribution of delays. Here’s an easy way to draw a map of the United States:
+
+```{r 13.4.6 question 1}
+airports %>%
+  semi_join(flights, c("faa" = "dest")) %>%
+  ggplot(aes(lon, lat)) +
+    borders("state") +
+    geom_point() +
+    coord_quickmap()
+
+ave_delay_by_dest <- flights %>% 
+  group_by(dest) %>% 
+  summarize(ave_delay = mean(arr_delay, na.rm = TRUE)) %>% 
+  inner_join(airports, by = c(dest = 'faa'))
+
+ave_delay_by_dest %>% 
+  ggplot(aes(lon,lat, color = ave_delay)) +
+  borders('state')+
+  geom_point()+
+  coord_quickmap()
+```
+
+### Question 2: Add the location of the origin and destination (i.e. the lat and lon) to flights.
+
+```{r 13.4.6 question 2}
+locations <- airports %>% 
+  select(faa, lat, lon) 
+
+flights %>% 
+  inner_join(locations, by = c(dest = 'faa'))
+```
+
+### Question 3: Is there a relationship between the age of a plane and its delays?
+
+```{r 13.4.6 question 3}
+flights %>% 
+  left_join(planes, by = 'tailnum', suffix = c('_flights','_planes')) %>% 
+  group_by(year_planes) %>% 
+  summarize(ave_delay = mean(arr_delay, na.rm = TRUE)) %>% 
+  ggplot(mapping = aes(x = year_planes, y = ave_delay))+
+  geom_point()
+```
+No, there is no relationship between the age of a plane and its delays, as seen by this plot.
+
+### Question 4: What weather conditions make it more likely to see a delay?
+
+```{r 13.4.6 question 4}
+flights_and_weather <- flights %>% 
+  left_join(weather) %>% 
+  group_by(wind_speed) %>% 
+  mutate(ave_delay = mean(arr_delay, na.rm = TRUE)) 
+
+wind_speed_delay<- flights_and_weather %>% 
+  ggplot(mapping = aes(x = ave_delay, y = wind_speed))+
+  geom_point()+
+  ggtitle("ave delay and wind speed")
+
+flights_weather_wind_dir <- flights %>% 
+  left_join(weather) %>% 
+  group_by(wind_dir) %>% 
+  mutate(ave_delay = mean(arr_delay, na.rm = TRUE)) 
+
+wind_dir_delay <- flights_weather_wind_dir %>% 
+  ggplot(mapping = aes(x = ave_delay, y = wind_dir))+
+  geom_point()+
+  ggtitle("ave delay and wind direction ")
+
+flights_weather_visib<- flights %>% 
+  left_join(weather) %>% 
+  group_by(visib) %>% 
+  mutate(ave_delay = mean(arr_delay, na.rm = TRUE)) 
+
+visib_delay <- flights_weather_visib %>%
+  ggplot(mapping = aes(x = ave_delay, y = visib))+
+  geom_point()+
+  ggtitle("ave delay and visibility ")
+```
+As you can see in these graphs, the largest correlations between delay and weather is with the conditions of visibility and wind speed. Wind direction did not have any clear correlation with delay.
+
+### Question 5: What happened on June 13 2013? Display the spatial pattern of delays, and then use Google to cross-reference with the weather.
+
+```{r 13.4.6 question 5}
+flights %>%
+  filter(year == 2013, month == 6, day == 13) %>%
+  group_by(dest) %>%
+  summarise(delay = mean(arr_delay, na.rm = TRUE)) %>%
+  inner_join(airports, by = c("dest" = "faa")) %>%
+  ggplot(aes(y = lat, x = lon, size = delay, colour = delay)) +
+  borders("state") +
+  geom_point() +
+  coord_quickmap() +
+  scale_colour_continuous()
+```
+There were derechos on June 13, 2013 that largely impacted the southeast and midwest of the US, which you can see with the largest delays happening in these areas.
+
+## Chapter 13.5.1 Exercises
+
+### Question 1: What does it mean for a flight to have a missing tailnum? What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
+
+Flights with a missing tailnum don't have an arr_time because they were cancelled. 
+
+```{r 13.5.1 question 1}
+flights %>%
+  filter(is.na(tailnum), !is.na(arr_time)) %>%
+  nrow()
+```
+
+Most of these planes without a tailnum belong to AA and MQ because 'American Airways (AA) and Envoy Air (MQ) report fleet numbers rather than tail numbers so can't be matched.'
+
+```{r 13.5.1 question 1.2}
+flights %>%
+  anti_join(planes, by = "tailnum") %>%
+  count(carrier, sort = TRUE) %>%
+  mutate(p = n / sum(n))
+```
+
+### Question 2: Filter flights to only show flights with planes that have flown at least 100 flights.
+
+```{r 13.5.1 question 2}
+flights %>% 
+  filter(!is.na(tailnum)) %>%
+  group_by(tailnum) %>% 
+  count() %>% 
+  filter(n >= 100)
+```
+
+### Question 3: Combine fueleconomy::vehicles and fueleconomy::common to find only the records for the most common models.
+
+```{r 13.5.1 question 3}
+vehicles %>% 
+  semi_join(common, by = c('make','model'))
+```
+
+### Question 4: Find the 48 hours (over the course of the whole year) that have the worst delays. Cross-reference it with the weather data. Can you see any patterns?
+
+```{r 13.5.1 question 4}
+worst_hours <- flights %>%
+  mutate(hour = sched_dep_time %/% 100) %>%
+  group_by(origin, year, month, day, hour) %>%
+  summarise(dep_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  ungroup() %>%
+  slice_max(order_by = dep_delay, n =48)
+
+weather_most_delayed <- semi_join(weather, worst_hours, 
+                                  by = c("origin", "year",
+                                         "month", "day", "hour"))
+
+ggplot(weather_most_delayed, aes(x = precip, y = wind_speed, color = temp)) +
+  geom_point()
+```
+
+### Question 5: What does anti_join(flights, airports, by = c("dest" = "faa")) tell you? 
+
+```{r 13.5.1 question 5}
+anti_join(flights, airports, by = c("dest" = "faa")) %>% 
+  distinct(dest)
+```
+This will give all the flights that went to an airport not in the FAA. These 4 airports are in either Puerto Rico or the US Virgin Islands.
+
+What does anti_join(airports, flights, by = c("faa" = "dest")) tell you?
+
+```{r 13.5.1 question 5.2}
+anti_join(airports, flights, by = c("faa" = "dest"))
+```
+This gives you all the airports that weren't the destination of any flight from this dataset.
+
+### Question 6: You might expect that there’s an implicit relationship between plane and airline, because each plane is flown by a single airline. Confirm or reject this hypothesis using the tools you’ve learned above.
+
+```{r 13.5.1 question 6}
+planes_carriers <-
+  flights %>%
+  filter(!is.na(tailnum)) %>%
+  distinct(tailnum, carrier)
+
+planes_carriers %>% 
+  count(tailnum) %>% 
+  filter(n > 1) %>% 
+  nrow()
+```
+All the rows that are greater than 1 show a plane that has flown under multiple carriers.
