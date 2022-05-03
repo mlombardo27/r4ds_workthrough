@@ -1,0 +1,36 @@
+---
+title: "chapter_15_16"
+author: "Maddie Lombardo"
+date: "4/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Chapter 15 Exercises
+
+## Chapter 15.3.1 Exercises
+
+### Question 1: Explore the distribution of rincome (reported income). What makes the default bar chart hard to understand? How could you improve the plot?
+
+```{r 15.3.1 question 1}
+gss_cat <- forcats::gss_cat
+
+gss_cat %>% 
+  ggplot(aes(rincome))+
+  geom_bar()
+```
+This just tells you how many times people have the reported income.
+
+```{r 15.3.1 question 1.2}
+gss_cat %>% 
+  
+```
+
+
+### Question 2: What is the most common relig in this survey? What’s the most common partyid?
+
+### Question 3: Which relig does denom (denomination) apply to? How can you find out with a table? How can you find out with a visualisation?
