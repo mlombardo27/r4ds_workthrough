@@ -241,10 +241,39 @@ It looks like the distribution of each month over the course of the day is relat
 
 ### Question 2: Compare dep_time, sched_dep_time and dep_delay. Are they consistent? Explain your findings.
 
+if the dep_delay is accurate, than (dep_time = dep_delay + sched_dep_time)
+
+```{r 16.3.4 question 2}
+
+flights_dt %>%
+  mutate(actual_dep_time = sched_dep_time + dep_delay * 60) %>%
+  filter(actual_dep_time != dep_time) %>%
+  select(actual_dep_time, dep_time, sched_dep_time, dep_delay)
+```
+if you look at the actual_dep_time vs the dep_time, there are differences in the DATE with which they actually left (they were a day off).
 
 ### Question 3: Compare air_time with the duration between the departure and arrival. Explain your findings. (Hint: consider the location of the airport.)
 
+```{r 16.3.4 question 3}
+
+timezones <- airports %>% 
+  select(faa, tzone)
+
+flights_dt %>% 
+  inner_join(timezones, by = c(dest = 'faa')) %>% 
+  mutate(duration = arr_time-dep_time) %>% 
+  mutate(difference = duration - air_time) %>% 
+  filter(air_time != duration) %>% 
+  filter(difference < 0) %>% 
+  select(origin, dest, air_time, duration, difference, tzone) %>% 
+  view()
+
+```
+For all planes that have a difference of < 0, or saying that there was less time in the air than there was subtracting the arr_time from the dep_time, they are in a difference time zone from departure (NY). This suggests that it doesn't take into consideration a timezone change when calculating the airtime.
+
 ### Question 4: How does the average delay time change over the course of a day? Should you use dep_time or sched_dep_time? Why?
+
+
 
 ### Question 5: On what day of the week should you leave if you want to minimise the chance of a delay?
 
